@@ -1,2 +1,2 @@
 web: ruby index.ruby
-worker:  bundle exec rake jobs:work
+worker:  bundle exec ruby index.rb
