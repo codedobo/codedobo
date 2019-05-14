@@ -1,5 +1,5 @@
 require_relative("index.ruby")
-commandBot = Discordrb::Commands::CommandBot.new token: :botToken, prefix: '!'
+commandBot = Discordrb::Commands::CommandBot.new token: botToken, prefix: '!'
 
 commandBot.command :user do |event|
     # Commands send whatever is returned from the block to the channel. This allows for compact commands like this,
