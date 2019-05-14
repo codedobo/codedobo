@@ -9,3 +9,5 @@ end
 require_relative("commands.ruby")
 
 bot.run
+loop do
+end
