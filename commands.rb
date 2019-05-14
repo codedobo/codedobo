@@ -1,4 +1,5 @@
-require_relative("index.ruby")
+require 'discordrb'
+botToken = "NTU0MzY2ODQ0NDE3NjA1NjQy.XNrz-Q.Hz17rXMWT8Kg2xpBi28Lr4ppTcs"
 commandBot = Discordrb::Commands::CommandBot.new token: botToken, prefix: '!'
 
 commandBot.command :user do |event|
@@ -44,4 +45,4 @@ commandBot.command :user do |event|
     # Here we don't have to worry about the return value because the `event << line` statement automatically returns nil.
   end
   
-  bot.run
+  commandBot.run
