@@ -1,0 +1,1 @@
+run: java -jar out\artifacts\CoDoBo\CoDoBo.jar
