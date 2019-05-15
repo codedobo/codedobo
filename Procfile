@@ -1,1 +1,1 @@
-run: java -jar out\artifacts\CoDoBo\CoDoBo.jar $token
+run: java -jar out/artifacts/CoDoBo/CoDoBo.jar $token
