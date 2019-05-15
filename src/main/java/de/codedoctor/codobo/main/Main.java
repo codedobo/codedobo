@@ -12,6 +12,5 @@ public class Main {
                 .subscribe(event -> event.getMessage().getContent().ifPresent(System.out::println)); // "subscribe" is the method you need to call to actually make sure that it's doing something.
         client.login().block();
         System.out.println("Successfully started CoDoBo!");
-
     }
 }
