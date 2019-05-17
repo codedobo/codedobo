@@ -10,7 +10,7 @@ end
 
 # Commands
 commandBot = Discordrb::Commands::CommandBot.new token: botToken, prefix: '!'
-commandBot.help_command = false
+commandBot.help_command false
 commandBot.command :user do |event|
   event.user.name
 end
