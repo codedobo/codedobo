@@ -1,1 +1,1 @@
-run: ruby index.ruby $token
+run: ruby index.rb $token
