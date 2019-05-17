@@ -1,4 +1,5 @@
 require 'discordrb'
+puts "Starting bot..."
 botToken = ARGV[0]
 bot = Discordrb::Bot.new token: botToken
 
@@ -19,5 +20,6 @@ end
 
 
 bot.run
+puts "Successfully started the bot!"
 loop do
 end
