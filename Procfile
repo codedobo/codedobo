@@ -1,1 +1,1 @@
-ruby: ruby index.ruby
+run: ruby index.ruby
