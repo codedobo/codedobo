@@ -1,1 +1,2 @@
-run: java -jar out/artifacts/CoDoBo/CoDoBo.jar $token
+web: ruby index.ruby
+worker:  bundle exec ruby index.rb
