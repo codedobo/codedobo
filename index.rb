@@ -8,7 +8,7 @@ bot.message(with_text: 'Ping!') do |event|
 end
 
 
-//Commands
+# Commands
 commandBot = Discordrb::Commands::CommandBot.new token: botToken, prefix: '!'
 commandBot.help_command = false
 commandBot.command :user do |event|
