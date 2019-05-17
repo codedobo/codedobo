@@ -1,2 +1,1 @@
-web: ruby index.ruby
-worker:  bundle exec ruby index.rb
+ruby: ruby index.ruby
