@@ -16,11 +16,11 @@ end
 commandBot.command :help do |event|
   event << "Hi! I'm CoDoBo, the bot by CodeDoctor!"
 end
+commandBot.run
 
 
 
-
-bot.run
 puts "Successfully started the bot!"
+bot.run
 loop do
 end
