@@ -14,7 +14,8 @@ commandBot.command :user do |event|
   event.user.name
 end
 commandBot.command :help do |event|
-  event << "Hi! I'm CoDoBo, the bot by CodeDoctor!"
+  event << "Hi! I'm CoDoBo, the bot by CodeDoctor! I would like to help you!"
+  event << commandBot.commands
 end
 commandBot.run
 
