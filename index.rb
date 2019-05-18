@@ -9,11 +9,13 @@ end
 
 
 # Commands
-commandBot = Discordrb::Commands::CommandBot.new token: botToken, prefix: '!',help_command: false
+commandBot = Discordrb::Commands::CommandBot.new token: botToken, prefix: '.',help_command: false
 commandBot.command :user do |event|
   event.user.name
 end
-
+commandBot.command :help do |event|
+  event << "Hi! I'm CoDoBo, the bot by CodeDoctor!"
+end
 
 
 
