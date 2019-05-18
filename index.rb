@@ -16,6 +16,7 @@ end
 commandBot.command :help do |event|
   event << "Hi! I'm CoDoBo, the bot by CodeDoctor! I would like to help you! Commands:"
   event << commandBot.commands
+  event << "*-*"
 end
 commandBot.run
 
