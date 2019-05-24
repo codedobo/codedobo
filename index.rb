@@ -20,7 +20,7 @@ end
 commandBotEN.command :help,usage:"Usage: .help!",max_args:0 do |event|
   event << "**The commands:**"
   commandBotEN.commands.each do |key,value|
-    event << "**.#{key}** --> #{value.attributes[:description]}"
+    event << "**.#{key}** --> #{value.description}"
   end
 end
 commandBotEN.command :info,usage: "Usage: .info" do |event|
