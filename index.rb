@@ -19,7 +19,7 @@ commandBotEN.command :hello,aliases:["welcome","me"] do |event|
 end
 commandBotEN.command :help,usage:"Usage: .help!",max_args:0 do |event|
   event << "**The commands:**"
-  commandBot.commands do |key,value|
+  commandBotEN.commands do |key,value|
     event << "**.#{key}**"
     event << "#{value}"
     event << ""
