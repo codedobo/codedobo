@@ -1,5 +1,5 @@
 require 'discordrb'
-require_relative("application.rb")
+require "./application.rb"
 puts "Starting bot..."
 botToken = ARGV[0]
 bot = Discordrb::Bot.new token: botToken
