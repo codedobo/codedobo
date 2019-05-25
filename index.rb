@@ -21,14 +21,13 @@ commandBotEN.command :help,usage:"Usage: .help!",max_args:0 do |event|
   commands = ""
   commandBotEN.commands.each do |key,value|
     next if value.is_a?(Discordrb::Commands::CommandAlias)
-    commands += "`.#{key}`(#{value.attributes[:aliases].map{ |i|  %Q('`#{i}`') }.join(', ')})`\n#{value.attributes[:description]}\n\n"
+    commands += "`.#{key}`(#{value.attributes[:aliases].map{ |i|  %Q('`#{i}`') }.join(', ')})\n#{value.attributes[:description]}\n\n"
   end
   event << commands
 end
 commandBotEN.command :info,usage: "Usage: .info" do |event|
 
 end
-commandBotEN.run
 
 commandBotDE = Discordrb::Commands::CommandBot.new token: botToken, prefix: '?',help_command: false,no_permission_message: "Du hast keine Rechte, diesen Befehl auszuführen!";command_doesnt_exist_message:"Dieser Befehl existiert nicht"
 commandBotDE.command :hallo,aliases:["willkommen","ich"] do |event|
@@ -49,7 +48,6 @@ commandBotDE.command :hilfe,usage: "Benutzung: ?hilfe",max_args:0 do |event|
   end
   event << commands
 end
-commandBotDE.run
 
 puts "Successfully started the bot!"
 bot.run
