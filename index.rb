@@ -21,7 +21,7 @@ commandBotEN.command :help,usage:"Usage: .help!",max_args:0 do |event|
   commands = ""
   commandBotEN.commands.each do |key,value|
     next if value.is_a?(Discordrb::Commands::CommandAlias)
-    commands += "`.#{key}(#{value.attributes[:aliases].map{ |i|  %Q('#{i}') }.join(', ')})`\n#{value.attributes[:description]}\n\n"
+    commands += "`.#{key}`(#{value.attributes[:aliases].map{ |i|  %Q('`#{i}`') }.join(', ')})`\n#{value.attributes[:description]}\n\n"
   end
   event << commands
 end
