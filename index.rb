@@ -21,7 +21,7 @@ commandBotEN.command :help,usage:"Usage: .help!",max_args:0 do |event|
   event << "**The commands:** #{commandBotEN.commands.length}"
   commandBotEN.commands.each do |key,value|
     next if value.is_a?(Discordrb::Commands::CommandAlias)
-    event << "**.#{key}**"
+    event << "**.#{value.name}**"
   end
 end
 commandBotEN.command :info,usage: "Usage: .info" do |event|
@@ -29,7 +29,7 @@ commandBotEN.command :info,usage: "Usage: .info" do |event|
 end
 commandBotEN.run
 
-commandBotDE = Discordrb::Commands::CommandBot.new token: botToken, prefix: '?',help_command: false,no_permission_message: "Du hast keine Rechte, diesen Befehl auszuführen!",command_doesnt_exist_message:"Dieser Befehl existiert nicht"
+commandBotDE = Discordrb::Commands::CommandBot.new token: botToken, prefix: '?',help_command: false,no_permission_message: "Du hast keine Rechte, diesen Befehl auszuführen!";command_doesnt_exist_message:"Dieser Befehl existiert nicht"
 commandBotDE.command :hilfe,usage: "Benutzung: ?hilfe",max_args:0 do |event|
   event << "Hallo! Ich bin CoDoBo, der Bot von CodeDoctor! Ich möchte dir helfen! Wenn du interessiert an mir bist, benutze #info!"
 end
