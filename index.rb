@@ -20,10 +20,12 @@ end
 commandBotEN.command :help,usage:"Usage: .help!",max_args:0 do |event|
   event << event.user.mention
   event << "**The commands:** #{commandBotEN.commands.length}"
+  commands = ""
   commandBotEN.commands.each do |key,value|
     next if value.is_a?(Discordrb::Commands::CommandAlias)
-    event << "`.#{key}`"
+    commands += "`.#{key}`\n"
   end
+  event << commands
 end
 commandBotEN.command :info,usage: "Usage: .info" do |event|
 
