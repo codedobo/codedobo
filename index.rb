@@ -21,6 +21,8 @@ commandBotEN.command :help,usage:"Usage: .help!",max_args:0 do |event|
   event << "**The commands:** #{commandBotEN.commands.length}"
   commandBotEN.commands.each do |key,value|
     next if value.is_a?(Discordrb::Commands::CommandAlias)
+    puts value
+    puts key
     event << "**.#{value.name}**"
   end
 end
