@@ -18,12 +18,11 @@ commandBotEN.command :hello,aliases:["welcome","me"] do |event|
   event << "Hi! I'm CoDoBo, the bot by CodeDoctor! I would like to help you! If you are interested in me, use .info! If you want to get all commands, use .help"
 end
 commandBotEN.command :help,usage:"Usage: .help!",max_args:0 do |event|
+  event << event.user.mention
   event << "**The commands:** #{commandBotEN.commands.length}"
   commandBotEN.commands.each do |key,value|
     next if value.is_a?(Discordrb::Commands::CommandAlias)
-    puts value
-    puts key
-    event << "**.#{value.name}**"
+    event << "`.#{key}`"
   end
 end
 commandBotEN.command :info,usage: "Usage: .info" do |event|
