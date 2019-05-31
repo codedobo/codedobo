@@ -51,5 +51,7 @@ end
 
 puts "Successfully started the bot!"
 bot.run
+commandBotDE.run
+commandBotEN.run
 loop do
 end
