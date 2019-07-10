@@ -7,4 +7,4 @@
 
 ## Discord:
 
-[discord.gg/FCarsnB]
+<https://discord.gg/FCarsnB>
