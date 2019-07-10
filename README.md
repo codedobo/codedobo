@@ -1,10 +1,10 @@
 # Welcome to the CoDoBo GitHub Repository!
 
-# Features:
+## Features:
 
 - Games
     - Uno
 
-# Discord:
+## Discord:
 
 discord.gg/FCarsnB
