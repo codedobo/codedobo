@@ -1,6 +1,8 @@
 require 'discordrb'
-require "./application.rb"
 puts "Starting bot..."
+if ARGV.length != 1
+  raise "Please enter a token!"
+end
 botToken = ARGV[0]
 bot = Discordrb::Bot.new token: botToken
 
@@ -10,7 +12,7 @@ end
 
 
 # Commands
-commandBotEN = Discordrb::Commands::CommandBot.new token: botToken, prefix: '.',help_command: false,no_permission_message: "You do not have permission to execute command!",command_doesnt_exist_message: "This command does not exist!"
+commandBotEN = Discordrb::Commands::CommandBot.new token: botToken, prefix: '.',help_command: false,no_permission_message: "You do not have permission to execute command!", command_doesnt_exist_message: "This command does not exist!"
 commandBotEN.command :hello,aliases:["welcome","me"] do |event|
   event << event.user.mention
   event << "Hi! I'm CoDoBo, the bot by CodeDoctor! I would like to help you! If you are interested in me, use .info! If you want to get all commands, use .help"
@@ -29,7 +31,7 @@ commandBotEN.command :info,usage: "Usage: .info" do |event|
 
 end
 
-commandBotDE = Discordrb::Commands::CommandBot.new token: botToken, prefix: '?',help_command: false,no_permission_message: "Du hast keine Rechte, diesen Befehl auszuführen!";command_doesnt_exist_message:"Dieser Befehl existiert nicht"
+commandBotDE = Discordrb::Commands::CommandBot.new token: botToken, prefix: '?',help_command: false,no_permission_message: "Du hast keine Rechte, diesen Befehl auszuführen!", command_doesnt_exist_message:"Dieser Befehl existiert nicht"
 commandBotDE.command :hallo,aliases:["willkommen","ich"] do |event|
   event << event.user.mention
   event << "Hallo! Ich bin CoDoBo, der Bot von CodeDoctor! Ich möchte dir helfen! Wenn du interessiert an mir bist, benutze #info!"
@@ -54,4 +56,9 @@ bot.run
 commandBotDE.run
 commandBotEN.run
 loop do
+  puts "Command: "
+  consoleCommand = gets.chomp
+  if(consoleCommand == "stop")
+    exit
+  end
 end

@@ -10,10 +10,10 @@ GEM
       websocket-client-simple (>= 0.3.0)
     discordrb-webhooks (3.3.0)
       rest-client (>= 2.1.0.rc1)
-    domain_name (0.5.20190701)
+    domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     event_emitter (0.2.6)
-    ffi (1.11.1)
+    ffi (1.10.0-x64-mingw32)
     http-accept (1.7.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
@@ -25,7 +25,8 @@ GEM
       ffi
     rbnacl (3.4.0)
       ffi
-    rest-client (2.1.0.rc1)
+    rest-client (2.1.0.rc1-x64-mingw32)
+      ffi (~> 1.9)
       http-accept (>= 1.7.0, < 2.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
@@ -40,11 +41,11 @@ GEM
       websocket
 
 PLATFORMS
-  ruby
+  x64-mingw32
 
 DEPENDENCIES
   discordrb
   ruby
 
 BUNDLED WITH
-   2.0.2
+   2.0.1
