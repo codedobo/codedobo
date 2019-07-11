@@ -1,0 +1,8 @@
+{
+    "commands":{
+        "hello":{
+            "aliases":["hallo","hi","was-geht","moin","guten-tag","hey","na"],
+            "output":"Hallo #{user}!"
+        }
+    }
+}

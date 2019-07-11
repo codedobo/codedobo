@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-Dir['*-module.rb'].each do |file|
-  require file
-end
 module BotModule
   def start; end
 
@@ -21,9 +18,11 @@ class ModuleManager
     @modules.each(&:start)
   end
 
-  def command(command, args)
+  def consoleCommand(command, args)
     @modules.each { |botModule| botModule.command(command, args) }
   end
+
+  def userCommand; end
 
   def stop
     @modules.each(&:stop)
