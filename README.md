@@ -1,10 +1,10 @@
 # Welcome to the CoDoBo GitHub Repository!
 
-## Features:
+## [Features/Modules](modules):
 
 ### In Development:
 - Games
-    - Uno
+    - [UNO](modules/uno)
 
 ## Discord:
 

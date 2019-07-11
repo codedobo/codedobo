@@ -3,7 +3,7 @@
 module BotModule
   def start; end
 
-  def command(_command, _args)
+  def consoleCommand(_command, _args)
     false
   end
 
@@ -19,7 +19,7 @@ class ModuleManager
   end
 
   def consoleCommand(command, args)
-    @modules.each { |botModule| botModule.command(command, args) }
+    @modules.each { |botModule| botModule.consoleCommand(command, args) }
   end
 
   def userCommand; end
