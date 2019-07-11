@@ -1,4 +1,8 @@
 require 'discordrb'
+
+require_relative 'modules/module.rb'
+version = "0.0.1"
+
 puts "Starting bot..."
 if ARGV.length != 1
   raise "Please enter a token!"
@@ -50,15 +54,24 @@ commandBotDE.command :hilfe,usage: "Benutzung: ?hilfe",max_args:0 do |event|
   end
   event << commands
 end
-
 puts "Successfully started the bot!"
-bot.run
-commandBotDE.run
-commandBotEN.run
+Thread.new do
 loop do
-  puts "Command: "
-  consoleCommand = gets.chomp
+  print "codobo@#{version} : Command: "
+  consoleCommand = STDIN.gets.chomp
   if(consoleCommand == "stop")
     exit
   end
 end
+end
+puts "Starting command bot..."
+Thread.new do
+commandBotDE.run
+end
+Thread.new do
+commandBotEN.run
+end
+puts "Successfully started command bot!"
+puts "Starting bot..."
+bot.run
+puts "Successfully started bot!"

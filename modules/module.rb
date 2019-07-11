@@ -1,6 +1,9 @@
-module BotModule do
+module BotModule
     def start
     end
-    def commands
+    def command(command, args)
+        false
+    end
+    def stop
     end
 end
