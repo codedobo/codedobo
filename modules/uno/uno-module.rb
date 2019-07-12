@@ -5,10 +5,10 @@ class UnoModule
   include BotModule
   @@moduleVersion = '0.5'
   def start(client)
-    puts 'Starting UNO module...'
+    puts 'Starting uno module...'
     @client = client
     setup
-    puts 'Successfully started UNO module!'
+    puts 'Successfully started uno module!'
   end
 
   def consoleCommand(command, _args)

@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
+require_relative './main-module.rb'
 class MainModule
-  def consoleCommand(_command, _args)
-    if %w[exit close stop quit].include? _command
+  include BotModule
+  def consoleCommand(command, _args)
+    puts "Running main@#{@@moduleVersion} module!" if command == 'main'
+    if %w[exit close quit stop].include? command
       puts 'Exiting application...'
       exit
     end

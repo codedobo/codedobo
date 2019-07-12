@@ -5,6 +5,7 @@
 ### In Development:
 - Games
     - [UNO](modules/uno)
+- [Main](modules/main)
 
 ## Discord:
 

@@ -11,6 +11,6 @@ class UnoModule
       `CATEGORY` int(50) NOT NULL,
       PRIMARY KEY  (`SERVERID`)
     );")
-    puts 'Successfully set up UNO module ...'
+    puts 'Successfully set up uno module ...'
   end
 end
