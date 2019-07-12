@@ -1,18 +1,15 @@
 # frozen_string_literal: true
 
 require 'discordrb'
-
-require_relative 'modules/module.rb'
-require_relative 'setup.rb'
-require_relative 'console-command.rb'
-
+require 'json'
+require 'mysql2'
+require_relative './modules/module.rb'
+require_relative './setup.rb'
+require_relative './bot.rb'
 Dir[File.join('.', '**/*.rb')].each do |file|
   puts "Including #{file}..."
   require_relative file
 end
-version = '0.0.1'
-
-puts 'Starting bot...'
 
 if ARGV.length != 1
   print 'Please enter a token: '
@@ -21,20 +18,14 @@ else
   botToken = ARGV[0]
 end
 
+puts 'Starting bot...'
 bot = Discordrb::Bot.new token: botToken
-class CoDoBo
-  def initialize(bot, _modules)
-    @bot = bot
-    @consoleCommand = CoDoBo::ModuleManager.new(_modules)
-  end
-  attr_reader :bot
-  def run
-    puts 'Starting bot...'
-    Thread.new do
-      consoleCommand = ConsoleCommand.new(data, moduleManager)
-      consoleCommand.run
-    end
-    puts 'Successfully started bot!'
-    bot.run
-  end
-end
+puts 'Connecting to mysql...'
+file = File.open 'database.json'
+databaseData = JSON.load file
+file.close
+client = Mysql2::Client.new(host: databaseData['host'], username: databaseData['username'], password: databaseData['password'])
+puts 'Successfully connected to mysql!'
+coDoBo = CoDoBo.new(bot, client, [UnoModule.new, MainModule.new])
+puts 'Successfully started bot!'
+coDoBo.run

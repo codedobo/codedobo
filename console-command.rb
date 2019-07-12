@@ -1,19 +1,18 @@
 # frozen_string_literal: true
 
 require_relative 'modules/module.rb'
+require_relative './bot.rb'
 require 'json'
 class CoDoBo
   class ConsoleCommand
-    def initialize(botData, moduleManager)
-      @botData = botData
+    def initialize(moduleManager)
       @moduleManager = moduleManager
     end
 
     def run
       @run = true
       while @run
-        version = @botData['version']
-        print "codobo-#{version}: "
+        print "codobo-#{CoDoBo.version}: "
         consoleCommand = STDIN.gets.chomp
         consoleCommandList = consoleCommand.split(' ')
         next if consoleCommandList.empty?

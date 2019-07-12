@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 module BotModule
-  def start; end
+  def start(serverConfig); end
+
+  def setup(client, database); end
 
   def consoleCommand(_command, _args)
     false
@@ -9,23 +11,27 @@ module BotModule
 
   def stop; end
 end
-class ModuleManager
-  def initialize(modules)
-    @modules = modules
-  end
+class CoDoBo
+  class ModuleManager
+    def initialize(_client, database, modules)
+      @modules = modules
+      @database = database
+      @modules.each { |botModule| botModule.setup(@client, @database) }
+    end
 
-  def start
-    @modules.each(&:start)
-  end
+    def start(serverConfig)
+      @modules.each { |botModule| botModule.start(serverConfig) }
+    end
 
-  def consoleCommand(command, args)
-    @modules.each { |botModule| botModule.consoleCommand(command, args) }
-  end
+    def consoleCommand(command, args)
+      @modules.each { |botModule| botModule.consoleCommand(command, args) }
+    end
 
-  def userCommand; end
+    def userCommand; end
 
-  def stop
-    @modules.each(&:stop)
+    def stop
+      @modules.each(&:stop)
+    end
+    attr_reader :modules
   end
-  attr_reader :modules
 end
