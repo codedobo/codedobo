@@ -26,6 +26,6 @@ databaseData = JSON.load file
 file.close
 client = Mysql2::Client.new(host: databaseData['host'], username: databaseData['username'], password: databaseData['password'])
 puts 'Successfully connected to mysql!'
-coDoBo = CoDoBo.new(bot, client, [UnoModule.new, MainModule.new])
+databasecoDoBo = CoDoBo.new(bot, client, [UnoModule.new, MainModule.new])
 puts 'Successfully started bot!'
 coDoBo.run

@@ -3,10 +3,10 @@
 require_relative './console-command.rb'
 class CoDoBo
   @@version = '0.5'
-  def initialize(bot, _database, _modules)
+  def initialize(bot, client, modules)
     @bot = bot
-    @database = _database
-    @moduleManager = CoDoBo::ModuleManager.new(database, _modules)
+    @client = client
+    @moduleManager = CoDoBo::ModuleManager.new(client, modules)
     @consoleCommand = CoDoBo::ConsoleCommand.new(@moduleManager)
   end
   attr_reader :bot
