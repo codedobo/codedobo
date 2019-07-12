@@ -20,6 +20,10 @@ class MainModule
     prefix = '!'
     puts "Joining server #{server.name}(#{id})..."
     @client.query("INSERT INTO `main` VALUES (#{id},'#{language}','#{prefix}') ON DUPLICATE KEY UPDATE LANGUAGE='#{language}', PREFIX='#{prefix}';")
+    updatePrefix
+  end
+
+  def updatePrefix
     @client.query('SELECT * FROM `main`').each do |row|
       serverID = row['SERVERID']
       @moduleManager.bot.serverPrefix[serverID] = row['PREFIX']

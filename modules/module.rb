@@ -7,7 +7,7 @@ module BotModule
     false
   end
 
-  def userCommand(_event)
+  def userCommand(_command, _args, _event)
     false
   end
 
@@ -45,12 +45,24 @@ class CoDoBo
       exist
     end
 
-    def userCommand(event)
-      @modules.each { |botModule| botModule.userCommand(event) }
+    def userCommand(command, args, event)
+      @modules.each { |botModule| botModule.userCommand(command, args, event) }
     end
 
     def join(server, already)
       @modules.each { |botModule| botModule.join(server, already) }
+    end
+
+    def getLanguage(serverID, botModuleName)
+      language = 'en'
+      @client.query("SELECT * FROM `main` WHERE SERVERID='#{serverID}';").each do |row|
+        language = row['LANGUAGE']
+        puts language
+      end
+      path = "language/#{language}/#{botModuleName}.json"
+      file = File.open path
+      data = JSON.load file
+      data
     end
 
     def stop

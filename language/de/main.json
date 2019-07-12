@@ -1,7 +1,7 @@
 {
     "commands":{
         "hello":{
-            "aliases":["hallo","hi","was-geht","moin","guten-tag","hey","na"],
+            "aliases":["hallo","hi","was-geht","moin","guten-tag","hey","na","info","information"],
             "output":"Hallo #{user}!"
         }
     }

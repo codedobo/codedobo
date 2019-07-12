@@ -1,3 +1,8 @@
 {
-    
+    "commands":{
+        "hello":{
+            "aliases":["hello","hi","whats-up","good-day","info","information"],
+            "output":"Hello %s!"
+        }
+    }
 }
