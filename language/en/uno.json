@@ -1,3 +1,12 @@
 {
-    
+    "commands":{
+        "uno":{
+            "aliases":["uno","UNO"],
+            "output":"You are using uno version %{v}! Use uno help for help!"
+        },
+        "help":{
+            "aliases":["help","Help","he","h","?","He","H"],
+            "output":"Use"
+        }
+    }
 }

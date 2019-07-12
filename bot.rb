@@ -22,6 +22,7 @@ class CoDoBo
     puts 'Starting bot...'
     discord.run(true)
     puts 'Successfully started bot!'
+    @discord.game = 'github/CodeDoctorDE'
     @moduleManager.run
     @consoleCommand.run
   end

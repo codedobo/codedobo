@@ -7,6 +7,11 @@
         "ping":{
             "aliases":["ping","Ping","ping!","Ping!"],
             "output":"Pong! :)"
+        },
+        "modules":{
+            "aliases":["addons","Addons","Add-ons","add-ons","plugins","plug-ins","Plugins","Plug-ins","modules","Modules"],
+            "output":"You are using %{c} modules: %{m}",
+            "delimiter": ", "
         }
     }
 }

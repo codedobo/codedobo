@@ -4,14 +4,22 @@ require_relative './main-module.rb'
 require_relative '../../bot.rb'
 class MainModule
   def userCommand(command, _args, event)
-    if @language.get(event.server.id)['commands']['hello']['aliases'].include? command
-      event.send_temporary_message format(@language.get(event.server.id)['commands']['hello']['output'], u: event.author.username, v: CoDoBo.version), 10
+    commandLanguage = @language.get(event.server.id)['commands']
+    if commandLanguage['hello']['aliases'].include? command
+      event.send_temporary_message format(commandLanguage['hello']['output'], u: event.author.username, v: CoDoBo.version), 10
+    elsif commandLanguage['modules']['aliases'].include? command
+      moduleClasses = []
+      @moduleManager.modules.each do |botModule|
+        moduleClasses.push(botModule.class.name)
+      end
+      event.send_temporary_message format(commandLanguage['modules']['output'], c: @moduleManager.modules.length, m: moduleClasses.join(commandLanguage['modules']['delimiter'])), 10
     end
   end
 
   def message(event)
-    if @language.get(event.server.id)['commands']['ping']['aliases'].include? event.content
-      event.send_temporary_message @language.get(event.server.id)['commands']['ping']['output'] % event.author.username, 10
+    commandLanguage = @language.get(event.server.id)['commands']
+    if commandLanguage['ping']['aliases'].include? event.content
+      event.send_temporary_message format(commandLanguage['ping']['output'], u: event.author.username), 10
     end
   end
 end
