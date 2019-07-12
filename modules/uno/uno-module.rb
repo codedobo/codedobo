@@ -4,7 +4,7 @@ require_relative '../module.rb'
 class UnoModule
   include BotModule
   @@moduleVersion = '0.5'
-  def start(client)
+  def start(client, _moduleManager)
     puts 'Starting uno module...'
     @client = client
     setup
@@ -12,7 +12,10 @@ class UnoModule
   end
 
   def consoleCommand(command, _args)
-    puts "Running uno@#{@@moduleVersion} module!" if command == 'uno'
+    if command == 'uno'
+      puts "Running uno@#{@@moduleVersion} module!"
+      true
+    end
   end
   attr_reader :data
 end

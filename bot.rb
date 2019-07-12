@@ -1,23 +1,29 @@
 # frozen_string_literal: true
 
 require_relative './console-command.rb'
+require_relative './user-command.rb'
+require_relative './setup.rb'
 class CoDoBo
   @@version = '0.5'
-  def initialize(bot, client, modules)
-    @bot = bot
+  def initialize(discord, client, modules)
+    @discord = discord
     @client = client
-    @moduleManager = CoDoBo::ModuleManager.new(client, modules)
+    @serverPrefix = {}
+    setup
+    @moduleManager = CoDoBo::ModuleManager.new(self, client, modules)
     @consoleCommand = CoDoBo::ConsoleCommand.new(@moduleManager)
+    @userCommand = CoDoBo::UserCommand.new(self, @moduleManager)
   end
-  attr_reader :bot
+  attr_reader :discord
+  attr_reader :userCommand
   attr_reader :database
+  attr_reader :serverPrefix
   def run
-    puts 'Starting console bot...'
-    Thread.new do
-      @consoleCommand.run
-    end
-    puts 'Successfully started console bot!'
-    bot.run
+    puts 'Starting bot...'
+    discord.run(true)
+    puts 'Successfully started bot!'
+    @moduleManager.run
+    @consoleCommand.run
   end
 
   def self.version

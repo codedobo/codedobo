@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class MainModule
-  def userCommands(_command, _args)
+  def userCommand(event)
+    event.send_temporary_message('test', 20)
     # if .include? _command
     #   puts 'Exiting application...'
     # end

@@ -19,7 +19,7 @@ class CoDoBo
 
         consoleCommandPrefix = consoleCommandList[0]
         consoleCommandArgs = consoleCommandList[1..-1]
-        @moduleManager.consoleCommand(consoleCommandPrefix, consoleCommandArgs)
+        puts 'Command not exist!' unless @moduleManager.consoleCommand(consoleCommandPrefix, consoleCommandArgs)
       end
     end
 
