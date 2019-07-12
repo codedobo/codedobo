@@ -3,6 +3,10 @@
         "hello":{
             "aliases":["hello","hi","whats-up","good-day","info","information"],
             "output":"Hello %s!"
+        },
+        "ping":{
+            "aliases":["ping","Ping","ping!","Ping!"],
+            "output":"Pong! :)"
         }
     }
 }
