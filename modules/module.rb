@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module BotModule
-  def start(client, database); end
+  def start(client); end
 
   def consoleCommand(_command, _args)
     false
@@ -14,10 +14,11 @@ class CoDoBo
     def initialize(client, modules)
       @modules = modules
       @client = client
+      start
     end
 
     def start
-      @modules.each { |botModule| botModule.start(client) }
+      @modules.each { |botModule| botModule.start(@client) }
     end
 
     def consoleCommand(command, args)
