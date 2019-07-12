@@ -14,6 +14,30 @@ module BotModule
   def join(server, already); end
 
   def stop; end
+  class Language
+    def initialize(name, client)
+      @language = {}
+      @name = name
+      @client = client
+      load
+    end
+
+    def load
+      @language.clear
+      @client.query('SELECT * FROM `main`;').each do |row|
+        @language[row['SERVERID']] = row['LANGUAGE']
+      end
+    end
+
+    def get(serverID)
+      path = "language/#{@language[serverID]}/#{@name}.json"
+      file = File.open path
+      data = JSON.load file
+      data
+    end
+    attr_reader :name
+    attr_reader :language
+  end
 end
 class CoDoBo
   class ModuleManager
@@ -51,18 +75,6 @@ class CoDoBo
 
     def join(server, already)
       @modules.each { |botModule| botModule.join(server, already) }
-    end
-
-    def getLanguage(serverID, botModuleName)
-      language = 'en'
-      @client.query("SELECT * FROM `main` WHERE SERVERID='#{serverID}';").each do |row|
-        language = row['LANGUAGE']
-        puts language
-      end
-      path = "language/#{language}/#{botModuleName}.json"
-      file = File.open path
-      data = JSON.load file
-      data
     end
 
     def stop

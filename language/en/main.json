@@ -2,7 +2,7 @@
     "commands":{
         "hello":{
             "aliases":["hello","hi","whats-up","good-day","info","information"],
-            "output":"Hello %s!"
+            "output":"Hello %{u}! You use CoDoBo Version %{v} by CodeDoctor (https://github.com/CodeDoctorDE). \r\nUse modules to see all modules!"
         },
         "ping":{
             "aliases":["ping","Ping","ping!","Ping!"],

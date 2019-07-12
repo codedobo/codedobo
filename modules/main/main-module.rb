@@ -10,14 +10,18 @@ class MainModule
     puts 'Starting main module...'
     @client = client
     @moduleManager = moduleManager
+    @language = BotModule::Language.new 'main', @client
     setup
+    @moduleManager.bot.discord.message do |event|
+      message(event)
+    end
     puts 'Successfully started main module!'
   end
 
   def join(server, _already)
     id = server.id
     language = 'en'
-    prefix = '!'
+    prefix = 'c!'
     puts "Joining server #{server.name}(#{id})..."
     @client.query("INSERT INTO `main` VALUES (#{id},'#{language}','#{prefix}') ON DUPLICATE KEY UPDATE LANGUAGE='#{language}', PREFIX='#{prefix}';")
     updatePrefix
