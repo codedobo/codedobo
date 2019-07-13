@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 module BotModule
-  def start(client, moduleManager); end
+  @name = 'Name'
+  def start(language, client, moduleManager); end
 
   def consoleCommand(_command, _args)
     false
@@ -32,7 +33,11 @@ module BotModule
     def get(serverID)
       path = "language/#{@language[serverID]}/#{@name}.json"
       file = File.open path
-      data = JSON.load file
+      file
+    end
+
+    def getJson(serverID)
+      data = JSON.load get(serverID)
       data
     end
     attr_reader :name

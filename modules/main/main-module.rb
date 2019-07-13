@@ -6,6 +6,7 @@ require_relative './setup.rb'
 class MainModule
   include BotModule
   @@moduleVersion = '0.5'
+  @@moduleDeveloper = 'CodeDoctorDE'
   def start(client, moduleManager)
     puts 'Starting main module...'
     @client = client

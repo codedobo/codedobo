@@ -7,10 +7,10 @@ class UnoModule
     @client.query("CREATE TABLE IF NOT EXISTS `uno` (
       `SERVERID` int(50) unsigned NOT NULL,
       `THEME` varchar(255) NOT NULL,
-      `MESSAGE` int(50) NOT NULL,
+      `CHANNEL` int(50) NOT NULL,
       `CATEGORY` int(50) NOT NULL,
       PRIMARY KEY  (`SERVERID`)
     );")
-    puts 'Successfully set up uno module ...'
+    puts 'Successfully set up uno module!'
   end
 end

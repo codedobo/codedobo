@@ -5,7 +5,7 @@ class MainModule
   include BotModule
   def consoleCommand(command, _args)
     if command == 'main'
-      puts "Running main@#{@@moduleVersion} module!"
+      puts "Running main@#{@@moduleVersion} module by #{@@moduleDeveloper}!"
       true
     elsif %w[exit close quit stop].include? command
       puts 'Exiting application...'

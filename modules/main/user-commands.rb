@@ -4,9 +4,9 @@ require_relative './main-module.rb'
 require_relative '../../bot.rb'
 class MainModule
   def userCommand(command, _args, event)
-    commandLanguage = @language.get(event.server.id)['commands']
+    commandLanguage = @language.getJson(event.server.id)['commands']
     if commandLanguage['hello']['aliases'].include? command
-      event.send_temporary_message format(commandLanguage['hello']['output'], u: event.author.username, v: CoDoBo.version), 10
+      event.send_temporary_message format(commandLanguage['hello']['output'], u: event.author.username, v: CoDoBo.version, d: @@moduleDeveloper), 10
     elsif commandLanguage['modules']['aliases'].include? command
       moduleClasses = []
       @moduleManager.modules.each do |botModule|
@@ -17,7 +17,7 @@ class MainModule
   end
 
   def message(event)
-    commandLanguage = @language.get(event.server.id)['commands']
+    commandLanguage = @language.getJson(event.server.id)['commands']
     if commandLanguage['ping']['aliases'].include? event.content
       event.send_temporary_message format(commandLanguage['ping']['output'], u: event.author.username), 10
     end
