@@ -2,13 +2,11 @@
 
 require_relative './uno-module.rb'
 class UnoModule
-  def message; end
   class MatchMaking
     class Game
-      def initialize(bot, channel, private, language)
+      def initialize(bot, channel, language)
         @bot = bot
         @channel = channel
-        @private = private
         @mode = :lobby
         @language = language
       end
@@ -55,8 +53,6 @@ class UnoModule
         @mode = :ingame
       end
 
-      attr_accessor :private
-
       def leave(player)
         @players.delete(player)
         check
@@ -76,27 +72,37 @@ class UnoModule
       @bot = bot
       @category = category
       @games = []
+      @privateGames = []
       @language = language
       createHub
+      bot.discord.reaction_add do |event|
+        react(event)
+      end
     end
 
     def createHub
-      @hubChannel = @category.server.create_channel(@language.getJson(@category.server.id)['category']['hub']['name'], topic: @language.getJson(@category.server.id)['category']['hub']['topic'])
-      @hubChannel.category = @category
-      message = @hubChannel.send_message(@language.getJson(@category.server.id)['messages']['hub'])
-      message.create_reaction('▶')
-      message.create_reaction('➕')
-      message.create_reaction('🔒')
-      message.pin
+      hubChannel = @category.server.create_channel(@language.getJson(@category.server.id)['category']['hub']['name'], topic: @language.getJson(@category.server.id)['category']['hub']['topic'])
+      hubChannel.category = @category
+      @hubMessage = hubChannel.send_message(@language.getJson(@category.server.id)['messages']['hub'])
+      @hubMessage.create_reaction('▶')
+      @hubMessage.create_reaction('➕')
+      @hubMessage.create_reaction('🔒')
+      @hubMessage.pin
     end
 
     def deleteHub
-      @hubChannel.delete
+      @hubMessage.channel.delete
     end
 
-    def new(privateRound)
+    def new
       game = Game.new(bot, category, privateRound, language)
       @games.push(game)
+      game
+    end
+
+    def newPrivate
+      game = Game.new(bot, category, privateRound, language)
+      @privateGames.push(game)
       game
     end
 
@@ -111,6 +117,14 @@ class UnoModule
       game.join(user)
     end
 
+    def random(_user)
+      if !@games.empty?
+
+      else
+        new(false)
+      end
+    end
+
     def leave(user)
       @games.each do |game|
         game.leave(user)
@@ -119,7 +133,7 @@ class UnoModule
 
     def exit
       puts 'Exiting game...'
-      @hubChannel.delete
+      @hubMessage.channel.delete
       @games.each { |game| delete(game) }
       puts 'Successfully exited game!'
     end
@@ -127,6 +141,22 @@ class UnoModule
     def delete(game)
       @game.delete
       @games.delete(game)
+    end
+
+    def react(event)
+      if event.message.id == @hubMessage.id
+        case event.emoji.name
+        when '▶'
+          event.message.delete_reaction(event.user, event.emoji.name)
+          event.channel.send_message 'Play!'
+        when '➕'
+          event.message.delete_reaction(event.user, event.emoji.name)
+          event.channel.send_message 'New!'
+        when '🔒'
+          event.message.delete_reaction(event.user, event.emoji.name)
+          event.channel.send_message 'Private!'
+        end
+      end
     end
 end
 end

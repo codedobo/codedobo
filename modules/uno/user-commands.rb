@@ -61,5 +61,4 @@ class UnoModule
   end
   end
 
-  def message(event); end
 end
