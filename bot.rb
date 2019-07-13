@@ -5,7 +5,9 @@ require_relative './user-command.rb'
 require_relative './setup.rb'
 class String
   def numeric?
-    Float(self) != nil rescue false
+    !Float(self).nil?
+  rescue StandardError
+    false
   end
 end
 class CoDoBo
@@ -23,11 +25,25 @@ class CoDoBo
   attr_reader :userCommand
   attr_reader :database
   attr_reader :serverPrefix
+  attr_reader :consoleCommand
   def run
     puts 'Starting discord bot...'
     discord.run(true)
     puts 'Successfully started discord bot!'
-    @discord.game = 'github/CodeDoctorDE'
+    @moduleManager.run
+    @consoleCommand.run
+  end
+
+  def exit
+    puts 'Bye'
+    discord.stop(false)
+    @moduleManager.exit
+    @consoleCommand.stop
+  end
+
+  def restart
+    @moduleManager.exit
+    @consoleCommand.stop
     @moduleManager.run
     @consoleCommand.run
   end

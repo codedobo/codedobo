@@ -33,7 +33,7 @@ class UnoModule
                   if channel.category?
                     puts "UPDATE `uno` SET CATEGORY=#{channel.id} WHERE SERVERID=#{channel.server.id};"
                     @client.query("UPDATE `uno` SET CATEGORY=#{channel.id} WHERE SERVERID=#{channel.server.id};")
-                    event.send_temporary_message format(commandLanguage['category']['set'], c: channel.name, i: channel.id), 10
+                    event.send_message format(commandLanguage['category']['set'], c: channel.name, i: channel.id)
                   else
                     event.send_temporary_message format(commandLanguage['category']['notexist'], c: args[1]), 10
                   end

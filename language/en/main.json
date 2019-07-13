@@ -14,5 +14,5 @@
             "delimiter": ", "
         }
     },
-    "help":"Help for module main: \r\n-`hello` » Get information about this bot \r\n-`Ping` (without command prefix) » The bot response to you if the bot can write in this channel and is online! \r\n-`modules` » Get information about the modules \r\n\r\n*-* Help for module main *-*"
+    "help":"Help for module main: \r\n-`hello` » Get information about this bot \r\n-`Ping` (without command prefix) » The bot response to you if the bot can write in this channel and is online! \r\n-`modules` » Get information about the modules \r\n\r\n*-* Help for the main module *-*"
 }

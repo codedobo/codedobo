@@ -24,8 +24,21 @@ class UnoModule
       true
     end
   end
-  def createMatchMaking
-    @matchMaking = UnoModule::MatchMaking.new
+
+  def matchMaking
+    @matchMaking = {}
+    @client.query('SELECT * FROM `uno`').each do |row|
+      next if row['CATEGORY'].nil?
+      next unless @moduleManager.bot.discord.servers.key? row['SERVERID']
+
+      @matchMaking[row['SERVERID'].to_i] = UnoModule::MatchMaking.new(@moduleManager.bot, @moduleManager.bot.discord.channel(row['CATEGORY']), @language)
+    end
+  end
+
+  def exit
+    @matchMaking.each do |_key, value|
+      value.exit
+    end
   end
   attr_reader :data
 end

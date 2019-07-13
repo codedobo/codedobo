@@ -27,6 +27,7 @@ class MainModule
     @client.query("INSERT INTO `main` VALUES (#{id},'#{language}','#{prefix}') ON DUPLICATE KEY UPDATE LANGUAGE='#{language}', PREFIX='#{prefix}';")
     updatePrefix
     puts "Successfully set up main module for #{server.id}!"
+    @moduleManager.bot.discord.game = 'github/CodeDoctorDE'
   end
 
   def updatePrefix

@@ -1,14 +1,16 @@
 # frozen_string_literal: true
 
+require_relative './uno-module.rb'
 class UnoModule
   def message; end
   class MatchMaking
     class Game
-      def initialize(bot, channel, private)
+      def initialize(bot, channel, private, language)
         @bot = bot
         @channel = channel
         @private = private
         @mode = :lobby
+        @language = language
       end
 
       def ingame!(users)
@@ -52,7 +54,7 @@ class UnoModule
       def ingame?
         @mode = :ingame
       end
-      
+
       attr_accessor :private
 
       def leave(player)
@@ -70,16 +72,18 @@ class UnoModule
       attr_reader :players
     end
 
-    def initialize(bot, category)
+    def initialize(bot, category, language)
       @bot = bot
       @category = category
       @games = []
+      @language = language
       createHub
     end
 
     def createHub
-      @hubChannel = @category.server.create_channel(@language.getJson(event.server.id)['category']['hub']['name'], topic: @language.getJson(event.server.id)['category']['hub']['topic'])
+      @hubChannel = @category.server.create_channel(@language.getJson(@category.server.id)['category']['hub']['name'], topic: @language.getJson(@category.server.id)['category']['hub']['topic'])
       @hubChannel.category = @category
+      @hubChannel.send_message(@language.getJson(@category.server.id)['messages']['hub'])
     end
 
     def deleteHub
@@ -87,7 +91,7 @@ class UnoModule
     end
 
     def new(privateRound)
-      game = Game.new(bot, category, privateRound)
+      game = Game.new(bot, category, privateRound, language)
       @games.push(game)
       game
     end
@@ -109,8 +113,11 @@ class UnoModule
       end
     end
 
-    def reset
+    def exit
+      puts 'Exiting game...'
+      @hubChannel.delete
       @games.each { |game| delete(game) }
+      puts 'Successfully exited game!'
     end
 
     def delete(game)

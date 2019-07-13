@@ -14,6 +14,10 @@ module BotModule
 
   def join(server, already); end
 
+  def help(); end
+
+  def exit(); end
+
   def stop; end
   class Language
     def initialize(name, client)
@@ -88,8 +92,10 @@ class CoDoBo
       ''
     end
 
-    def stop
-      @modules.each(&:stop)
+    def exit
+      puts 'Exiting all modules...'
+      @modules.each(&:exit)
+      puts 'Successfully exited all modules!'
     end
     attr_reader :modules
     attr_reader :bot
