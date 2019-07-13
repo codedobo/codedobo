@@ -12,7 +12,9 @@
         "category":{
             "aliases":["cate","gory","category","cg"],
             "get":"The matchmaking channel is %{c}(%{i})",
-            "set":"Successfully set the matchmaking channel to %{c}(%{i})!"
+            "noget":"You haven't got a matchmaking channel!",
+            "set":"Successfully set the matchmaking channel to %{c}(%{i})!",
+            "notexist":"Category `%{c}` does not exist or is a channel!"
         },
         "notexist":"Sub command not exist! Use `uno help` for help!"
     },

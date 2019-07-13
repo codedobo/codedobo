@@ -3,6 +3,11 @@
 require_relative './console-command.rb'
 require_relative './user-command.rb'
 require_relative './setup.rb'
+class String
+  def numeric?
+    Float(self) != nil rescue false
+  end
+end
 class CoDoBo
   @@version = '0.5'
   def initialize(discord, client, modules)

@@ -3,7 +3,7 @@
 require_relative './main-module.rb'
 class MainModule
   def setup
-    puts 'Setup up main module...'
+    puts 'Set up up main module...'
     puts 'Successfully set up main module!'
   end
 end

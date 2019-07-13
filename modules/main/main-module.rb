@@ -20,12 +20,13 @@ class MainModule
   end
 
   def join(server, _already)
+    puts "Set up main module for #{server.id}..."
     id = server.id
     language = 'en'
     prefix = 'c!'
-    puts "Joining server #{server.name}(#{id})..."
     @client.query("INSERT INTO `main` VALUES (#{id},'#{language}','#{prefix}') ON DUPLICATE KEY UPDATE LANGUAGE='#{language}', PREFIX='#{prefix}';")
     updatePrefix
+    puts "Successfully set up main module for #{server.id}!"
   end
 
   def updatePrefix
