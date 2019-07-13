@@ -9,9 +9,10 @@
             "output":"Pong! :)"
         },
         "modules":{
-            "aliases":["addons","Addons","Add-ons","add-ons","plugins","plug-ins","Plugins","Plug-ins","modules","Modules"],
-            "output":"You are using %{c} modules: %{m}",
+            "aliases":["addons","Addons","Add-ons","add-ons","addon","Addon","Add-on","add-on","plugins","plug-ins","Plugins","Plug-ins","Plugin","plugin","Plug-in","plug-in","modules","Modules","module","Module","Help","help"],
+            "output":"You are using %{c} modules: %{m}! \r\nUse `module <Module>` for help",
             "delimiter": ", "
         }
-    }
+    },
+    "help":"Help for module main: \r\n-`hello` » Get information about this bot \r\n-`Ping` (without command prefix) » The bot response to you if the bot can write in this channel and is online! \r\n-`modules` » Get information about the modules \r\n\r\n*-* Help for module main *-*"
 }

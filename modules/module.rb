@@ -84,6 +84,10 @@ class CoDoBo
       @modules.each { |botModule| botModule.join(server, already) }
     end
 
+    def help(_user)
+      ''
+    end
+
     def stop
       @modules.each(&:stop)
     end

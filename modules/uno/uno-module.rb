@@ -2,6 +2,7 @@
 
 require_relative '../module.rb'
 require_relative './user-commands.rb'
+require_relative './game.rb'
 class UnoModule
   include BotModule
   @@moduleVersion = '0.5'
@@ -22,6 +23,9 @@ class UnoModule
       puts "Running uno@#{@@moduleVersion} module!"
       true
     end
+  end
+  def createMatchMaking
+    @matchMaking = UnoModule::MatchMaking.new
   end
   attr_reader :data
 end

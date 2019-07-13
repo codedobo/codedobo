@@ -1,26 +1,53 @@
 {
-    "commands":{
-        "uno":{
-            "aliases":["uno","UNO"],
-            "output":"You are using uno version %{v}! Use `uno help` for help!"
+    "commands": {
+        "uno": {
+            "aliases": [
+                "uno",
+                "UNO"
+            ],
+            "output": "You are using uno version %{v}! Use `uno help` for help!"
         },
-        "help":{
-            "aliases":["help","Help","he","h","?","He","H"],
-            "output":"Uno module help: \r\n-`uno` » See information about this module \r\n-`uno help` » See this help site \r\n-`uno category <Category>` » Set matchmaking category \r\n-`uno category` » Get matchmaking category",
-            "nopermission":"You do not have permission to use this command!"
+        "help": {
+            "aliases": [
+                "help",
+                "Help",
+                "he",
+                "h",
+                "?",
+                "He",
+                "H"
+            ],
+            "output": "Uno module help: \r\n-`uno` » See information about this module \r\n-`uno help` » See this help site \r\n-`uno category <Category>` » Set matchmaking category \r\n-`uno category` » Get matchmaking category",
+            "nopermission": "You do not have permission to use this command!"
         },
-        "category":{
-            "aliases":["cate","gory","category","cg"],
-            "get":"The matchmaking channel is %{c}(%{i})",
-            "noget":"You haven't got a matchmaking channel!",
-            "set":"Successfully set the matchmaking channel to %{c}(%{i})!",
-            "notexist":"Category `%{c}` does not exist or is a channel!"
+        "category": {
+            "aliases": [
+                "cate",
+                "gory",
+                "category",
+                "cg"
+            ],
+            "get": "The matchmaking channel is %{c}(%{i})",
+            "noget": "You haven't got a matchmaking channel!",
+            "set": "Successfully set the matchmaking channel to %{c}(%{i})!",
+            "notexist": "Category `%{c}` does not exist or is a channel!"
         },
-        "notexist":"Sub command not exist! Use `uno help` for help!"
+        "notexist": "Sub command not exist! Use `uno help` for help!"
     },
-    "category":{
-        "matchmaking-channel":"uno-matchmaking",
-        "lobby-channel":"uno-lobby-%{c}",
-        "game-channel":"uno-game-%{c}"
+    "category": {
+        "hub": {
+            "name": "uno-matchmaking",
+            "topic":"Here you can join/create (private) uno matches!"
+        },
+        "lobby": {
+            "name": "uno-lobby-%{c}",
+            "topic":"Here you can wait until the round starts! The bot send you a message with the cooldown when the round starts! You can invite people with the command `uno invite <User>`! After a cooldown, the game starts!"
+        }
+    },
+    "messages": {
+        "hub": "React with :arrow_forward: to join in an open lobby! Use :heavy_plus_sign: to create a new lobby! Press :lock: to create a private lobby!",
+        "lobby": "Welcome to the uno lobby! Invite someone with the command `uno invite <User>`! Leave with the command `uno leave`! React with :heavy_check_mark: to start the game!",
+        "ingame-countdown": "The game will start in %{s} seconds! The game will close in these seconds if the player count is under 2!",
+        "lobby-countdown": "The game will restart in %{s} seconds! The game will close in these seconds if the player count is under 2!"
     }
 }
