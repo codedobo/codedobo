@@ -83,7 +83,11 @@ class UnoModule
     def createHub
       @hubChannel = @category.server.create_channel(@language.getJson(@category.server.id)['category']['hub']['name'], topic: @language.getJson(@category.server.id)['category']['hub']['topic'])
       @hubChannel.category = @category
-      @hubChannel.send_message(@language.getJson(@category.server.id)['messages']['hub'])
+      message = @hubChannel.send_message(@language.getJson(@category.server.id)['messages']['hub'])
+      message.create_reaction('▶')
+      message.create_reaction('➕')
+      message.create_reaction('🔒')
+      message.pin
     end
 
     def deleteHub
