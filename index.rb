@@ -18,7 +18,7 @@ else
   botToken = ARGV[0]
 end
 
-puts 'Starting bot...'
+puts 'Starting CoDoBo...'
 bot = Discordrb::Bot.new token: botToken
 puts 'Connecting to mysql...'
 file = File.open 'database.json'
@@ -27,5 +27,5 @@ file.close
 client = Mysql2::Client.new(host: databaseData['host'], username: databaseData['username'], password: databaseData['password'], database: databaseData['database'])
 puts 'Successfully connected to mysql!'
 coDoBo = CoDoBo.new(bot, client, [UnoModule.new, MainModule.new])
-puts 'Successfully started bot!'
+puts 'Successfully started CoDoBo!'
 coDoBo.run

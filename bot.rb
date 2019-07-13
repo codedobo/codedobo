@@ -19,9 +19,9 @@ class CoDoBo
   attr_reader :database
   attr_reader :serverPrefix
   def run
-    puts 'Starting bot...'
+    puts 'Starting discord bot...'
     discord.run(true)
-    puts 'Successfully started bot!'
+    puts 'Successfully started discord bot!'
     @discord.game = 'github/CodeDoctorDE'
     @moduleManager.run
     @consoleCommand.run
