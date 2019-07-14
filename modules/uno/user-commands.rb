@@ -2,6 +2,7 @@
 
 require_relative './uno-module.rb'
 class UnoModule
+  def message(event); end
   def userCommand(command, args, event)
     commandLanguage = @language.getJson(event.server.id)['commands']
     if commandLanguage['uno']['aliases'].include? command
