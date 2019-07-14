@@ -147,15 +147,13 @@ class UnoModule
       if event.message.id == @hubMessage.id
         case event.emoji.name
         when '▶'
-          event.message.delete_reaction(event.user, event.emoji.name)
           event.channel.send_message 'Play!'
         when '➕'
-          event.message.delete_reaction(event.user, event.emoji.name)
           event.channel.send_message 'New!'
         when '🔒'
-          event.message.delete_reaction(event.user, event.emoji.name)
           event.channel.send_message 'Private!'
         end
+        event.message.delete_reaction(event.user, event.emoji.name)
       end
     end
 end
