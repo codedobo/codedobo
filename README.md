@@ -13,4 +13,4 @@
 
 ## Invite:
 
-<https://discordapp.com/api/oauth2/authorize?client_id=554366844417605642&permissions=8&scope=bot>
+Please note that the bot is in development! Watch this repository to get notified when something was do on the bot!
