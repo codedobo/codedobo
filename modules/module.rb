@@ -18,6 +18,8 @@ module BotModule
 
   def exit(); end
 
+  def reload(server); end
+
   def stop; end
   class Language
     def initialize(name, client)

@@ -21,4 +21,11 @@ class UnoModule
     matchMaking
     puts "Successfully set up uno module for #{server.id}!"
   end
+
+  def reload(server)
+    puts "Reloading uno module for server #{server.name}(#{server.id})..."
+    exit
+    matchMaking
+    puts "Succefully reloaded the uno module for the server!"
+  end
 end

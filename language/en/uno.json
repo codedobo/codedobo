@@ -21,16 +21,36 @@
             "nopermission": "You do not have permission to use this command!"
         },
         "category": {
-            "aliases": [
-                "cate",
-                "gory",
-                "category",
-                "cg"
-            ],
-            "get": "The matchmaking channel is %{c}(%{i})",
-            "noget": "You haven't got a matchmaking channel!",
-            "set": "Successfully set the matchmaking channel to %{c}(%{i})!",
-            "notexist": "Category `%{c}` does not exist or is a channel!"
+            "get":{
+                "aliases": [
+                    "getcate",
+                    "getgory",
+                    "getcategory",
+                    "getcg",
+                    "cate",
+                    "gory",
+                    "category",
+                    "cg"
+                ],
+                "output": "The matchmaking channel is %{c}(%{i})",
+                "no": "You haven't got a matchmaking channel!"
+            },
+            "set":{
+                "aliases": [
+                    "setcate",
+                    "setgory",
+                    "setcategory",
+                    "setcg",
+                    "scate",
+                    "sgory",
+                    "scategory",
+                    "scg"
+                ],
+                "usage":"Usage: `uno setcategory <Category>` to set the category for the matchmaking and `uno setcategory [<Category>] to remove the category!",
+                "output": "Successfully set the matchmaking channel to %{c}(%{i})!",
+                "notexist": "Category `%{c}` does not exist or is a channel!"
+            },
+            "nopermission": "You do not have permission to use this command!"
         },
         "notexist": "Sub command not exist! Use `uno help` for help!"
     },
@@ -50,5 +70,5 @@
         "ingame-countdown": "The game will start in %{s} seconds! The game will close in these seconds if the player count is under 2!",
         "lobby-countdown": "The game will restart in %{s} seconds! The game will close in these seconds if the player count is under 2!"
     },
-    "help":"Help for module main: \r\n-`uno` » Get information about this module \r\n-`uno help` » Get the admin commands of the module \r\n\r\n*-* Help for the uno module *-*"
+    "help":"Help for module main: \r\n-`uno` » Get information about this module \r\n-`uno help` » Get the admin commands of the module \r\n-`uno category` » Get the category of the module \r\n\r\n*-* Help for the uno module *-*"
 }
