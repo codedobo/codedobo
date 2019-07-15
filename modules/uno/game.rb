@@ -5,7 +5,20 @@ class UnoModule
   class MatchMaking
     class Game
       def Card
-        def initialize; end
+        def initialize(json)
+          @properties = json
+        end
+
+        def set?(card)
+          cardProp = card.properties
+          myProp = @properties
+          if (card.groups.before & myProp.groups.after).empty?
+            true
+          else
+            false
+          end
+        end
+        attr_accessor :properties
       end
       @ingamePlayers
       def initialize(matchMaking, category, language)
