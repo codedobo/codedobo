@@ -14,7 +14,7 @@ module BotModule
 
   def join(server, already); end
 
-  def help(); end
+  def help(user, channel); end
 
   def exit(); end
 
@@ -90,7 +90,7 @@ class CoDoBo
       @modules.each { |botModule| botModule.join(server, already) }
     end
 
-    def help(_user)
+    def help(_user, _channel)
       ''
     end
 

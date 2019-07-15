@@ -4,22 +4,39 @@ require_relative './uno-module.rb'
 class UnoModule
   class MatchMaking
     class Game
-      def initialize(bot, channel, language)
-        @bot = bot
-        @channel = channel
+      def initialize(matchMaking, category, language)
+        @matchMaking = matchMaking
+        @category = category
         @mode = :lobby
         @language = language
+        @tokens = []
+        channel = @category.server.create_channel(@language.getJson(@category.server.id)['category']['lobby']['name'], topic: @language.getJson(@category.server.id)['category']['lobby']['topic'])
+        channel.category = @category
+        @message = channel.send_message(@language.getJson(@category.server.id)['messages']['lobby'])
+        @message.create_reaction('✖')
+        @message.pin
+        @players = []
+        @userChannels = {}
+        channel.server.roles.each do |role|
+          channel.define_overwrite(role, Discordrb::Permissions.new, Discordrb::Permissions.new(%i[read_messages add_reactions send_messages]))
+        end
+        matchMaking.bot.discord.reaction_add do |event|
+          react(event)
+        end
       end
 
-      def ingame!(users)
-        if users.length > 1
-          @players = users
+      def ingame!
+        if @players.length > 1
           Thread.new do
             30.downto(0) do |i|
-              @channel.send_temporary_message format(@language.getJson(event.server.id)['matchmaking']['ingame-countdown'], s: i), 5
+              @message.channel.send_message format(@language.getJson(@message.channel.server.id)['messages']['ingame-countdown'], s: i)
               sleep 1
             end
-            check
+            @userChannels.each(&:delete)
+            @userChannels.clear
+            @players.each do |player|
+              @userChannels[player]
+            end
             @mode = :ingame
           end
           true
@@ -28,15 +45,14 @@ class UnoModule
         end
       end
 
-      def lobby!(users)
-        if users.length > 1
-          @players = users
+      def lobby!
+        if @players.length > 1
           Thread.new do
             30.downto(0) do |i|
-              @channel.send_temporary_message format(@language.getJson(event.server.id)['matchmaking']['lobby-countdown'], s: i), 5
+              @message.channel.send_message format(@language.getJson(event.server.id)['messages']['lobby-countdown'], s: i)
               sleep 1
             end
-            check
+            @userChannels.each(&:delete)
             @mode = :lobby
           end
           true
@@ -53,20 +69,55 @@ class UnoModule
         @mode = :ingame
       end
 
-      def leave(player)
-        @players.delete(player)
-        check
+      def join(player, token = nil)
+        unless @players.include? player
+          @players.push(player)
+          @tokens.delete(token) unless token.nil?
+          @message.channel.send_message format(@language.getJson(@category.server.id)['messages']['join'], p: player.name)
+          @message.channel.define_overwrite player, Discordrb::Permissions.new(%i[read_messages add_reactions send_messages]), Discordrb::Permissions.new
+          ingame!
+        end
       end
 
-      def check
-        channel.delete if players.length < 2
+      def leave(player)
+        if @players.include? player
+          @players.delete(player)
+          puts @message
+          @message.channel.send_message format(@language.getJson(@category.server.id)['messages']['leave'], p: player.name)
+          @message.channel.define_overwrite player, Discordrb::Permissions.new, Discordrb::Permissions.new(%i[read_messages add_reactions send_messages])
+          close?
+        end
+      end
+
+      def min?
+        true if players.length > 1
+      end
+
+      def close?
+        true if players.empty?
       end
 
       def delete
-        channel.delete
+        @userChannels.each do |_key, value|
+          value.delete
+        end
+        @message.channel.delete
       end
+
+      def react(event)
+        if event.message.id == @message.id
+          event.message.delete_reaction(event.user, event.emoji.name)
+          case event.emoji.name
+          when '✖'
+            @matchMaking.leave(event.user)
+          end
+        end
+      end
+      attr_reader :tokens
       attr_reader :players
+      attr_reader :userChannels
     end
+    @token = []
 
     def initialize(bot, category, language)
       @bot = bot
@@ -94,52 +145,56 @@ class UnoModule
       @hubMessage.channel.delete
     end
 
-    def new
-      game = Game.new(bot, category, privateRound, language)
+    def create(player)
+      leave(player)
+      game = Game.new(self, @category, @language)
       @games.push(game)
+      game.join(player)
       game
     end
 
-    def newPrivate
-      game = Game.new(bot, category, privateRound, language)
+    def createPrivate
+      game = Game.new(self, @category, @language)
       @privateGames.push(game)
       game
     end
 
-    def get(user)
+    def get(player)
       @games.each do |game|
-        game if game.players.includes? user
+        game if game.players.includes? player
       end
     end
 
-    def join(user, game)
-      leave(user)
-      game.join(user)
+    def join(player, game)
+      leave(player)
+      game.join(player)
     end
 
-    def random(_user)
+    def random(player)
+      leave(player)
       if !@games.empty?
-
+        game = @games.sample
+        join(player, game)
+        game
       else
-        new(false)
+        create(player)
       end
     end
 
-    def leave(user)
+    def leave(player)
       @games.each do |game|
-        game.leave(user)
+        game.leave(player)
+        delete(game) if game.close?
       end
     end
 
     def exit
-      puts 'Exiting game...'
       @hubMessage.channel.delete
       @games.each { |game| delete(game) }
-      puts 'Successfully exited game!'
     end
 
     def delete(game)
-      @game.delete
+      game.delete
       @games.delete(game)
     end
 
@@ -148,7 +203,7 @@ class UnoModule
         event.message.delete_reaction(event.user, event.emoji.name)
         case event.emoji.name
         when '▶'
-          event.channel.send_message 'Play!'
+          random(event.user)
         when '➕'
           event.channel.send_message 'New!'
         when '🔒'
@@ -156,5 +211,21 @@ class UnoModule
         end
       end
     end
-end
+
+    def newToken(game)
+      isUnique = true
+      token = nil
+      until isUnique
+        o = [('a'..'z'), ('A'..'Z'), ('0'..'9')].map(&:to_a).flatten
+        token = (0...50).map { o[rand(o.length)] }.join
+        isUnique = true
+        @games.each do |game|
+          isUnique = false if game.tokens.include? token
+        end
+      end
+      game.tokens.push(token)
+      token
+    end
+    attr_reader :bot
+  end
 end

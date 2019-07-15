@@ -62,4 +62,8 @@ class UnoModule
       end
     end
   end
+
+  def help(_user, channel)
+    channel.send_temporary_message format(@language.getJson(channel.server.id)['help']), 10
+  end
 end

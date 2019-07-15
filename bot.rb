@@ -37,6 +37,7 @@ class CoDoBo
   def exit
     puts 'Bye'
     discord.stop(false)
+    discord.game = 'github/CodeDoctorDE'
     @moduleManager.exit
     @consoleCommand.stop
   end

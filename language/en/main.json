@@ -1,18 +1,57 @@
 {
-    "commands":{
-        "hello":{
-            "aliases":["hello","hi","whats-up","good-day","info","information","me","i"],
-            "output":"Hello %{u}! You use CoDoBo Version %{v} by %{d} (https://github.com/CodeDoctorDE). \r\nUse `modules` to see all modules!"
+    "commands": {
+        "hello": {
+            "aliases": [
+                "hello",
+                "hi",
+                "whats-up",
+                "good-day",
+                "info",
+                "information",
+                "me",
+                "i"
+            ],
+            "output": "Hello %{u}! You are using CoDoBo version %{v} by %{d} (https://github.com/CodeDoctorDE). \r\nUse `modules` to see all modules!"
         },
-        "ping":{
-            "aliases":["ping","Ping","ping!","Ping!"],
-            "output":"Pong! :)"
+        "ping": {
+            "aliases": [
+                "ping",
+                "Ping",
+                "ping!",
+                "Ping!"
+            ],
+            "output": "Pong! :)"
         },
-        "modules":{
-            "aliases":["addons","Addons","Add-ons","add-ons","addon","Addon","Add-on","add-on","plugins","plug-ins","Plugins","Plug-ins","Plugin","plugin","Plug-in","plug-in","modules","Modules","module","Module","Help","help"],
-            "output":"You are using %{c} modules: %{m}! \r\nUse `module <Module>` for help",
-            "delimiter": ", "
+        "modules": {
+            "aliases": [
+                "addons",
+                "Addons",
+                "Add-ons",
+                "add-ons",
+                "addon",
+                "Addon",
+                "Add-on",
+                "add-on",
+                "plugins",
+                "plug-ins",
+                "Plugins",
+                "Plug-ins",
+                "Plugin",
+                "plugin",
+                "Plug-in",
+                "plug-in",
+                "modules",
+                "Modules",
+                "module",
+                "Module",
+                "Help",
+                "help"
+            ],
+            "output": "You are using %{c} modules: %{m}! \r\nUse `module <Module>` for help",
+            "delimiter": ", ",
+            "notexist": "The module %{m} does not exist!",
+            "usage": "Usage: `uno modules [<Module>]`"
         }
     },
-    "help":"Help for module main: \r\n-`hello` » Get information about this bot \r\n-`Ping` (without command prefix) » The bot response to you if the bot can write in this channel and is online! \r\n-`modules` » Get information about the modules \r\n\r\n*-* Help for the main module *-*"
+    "help": "Help for module main: \r\n-`hello` » Get information about this bot \r\n-`Ping` (without command prefix) » The bot response to you if the bot can write in this channel and is online! \r\n-`modules` » Get information about the modules \r\n\r\n*-* Help for the main module *-*"
 }
