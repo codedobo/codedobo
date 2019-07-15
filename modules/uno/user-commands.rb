@@ -35,25 +35,29 @@ class UnoModule
           when *commandLanguage['category']['set']['aliases']
             if args.length == 2
               if args[1].numeric?
-                channel = event.bot.channel(args[1].to_i)
-                if channel.nil?
-                  event.send_temporary_message format(commandLanguage['category']['set']['notexist'], c: channel.name, i: channel.id), 10
-                else
-                  if channel.category?
-                    @client.query("UPDATE `uno` SET CATEGORY=#{channel.id} WHERE SERVERID=#{channel.server.id};")
-                    event.send_message format(commandLanguage['category']['set']['output'], c: channel.name, i: channel.id)
-                    reload(event.server)
+                channel = event.bot.channel(args[1].to_i, event.server)
+                if channel.server.id == event.server.id
+                  if channel.nil?
+                    event.send_temporary_message format(commandLanguage['category']['set']['notexist'], c: channel.name, i: channel.id), 10
                   else
-                    event.send_temporary_message format(commandLanguage['category']['set']['notexist'], c: args[1]), 10
+                    if channel.category?
+                      @client.query("UPDATE `uno` SET CATEGORY=#{channel.id} WHERE SERVERID=#{channel.server.id};")
+                      event.send_message format(commandLanguage['category']['set']['output'], c: channel.name, i: channel.id)
+                      reload(event.server)
+                    else
+                      event.send_temporary_message format(commandLanguage['category']['set']['notexist'], c: args[1]), 10
+                    end
                   end
+                else
+                  event.send_temporary_message format(commandLanguage['category']['set']['notexist'], c: args[1]), 10
                 end
-              elsif args.length == 1
-                @client.query("UPDATE `uno` SET CATEGORY=NULL WHERE SERVERID=#{channel.server.id};")
-                event.send_message format(commandLanguage['category']['set']['output'], c: channel.name, i: channel.id)
-                reload(event.server)
               else
                 event.send_temporary_message format(commandLanguage['category']['set']['notexist'], c: args[1]), 10
               end
+            elsif args.length == 1
+              @client.query("UPDATE `uno` SET CATEGORY=NULL WHERE SERVERID=#{event.server.id};")
+              event.send_message commandLanguage['category']['set']['remove']
+              reload(event.server)
             else
               event.send_temporary_message format(commandLanguage['category']['set']['usage'], u: event.author.username), 10
             end
