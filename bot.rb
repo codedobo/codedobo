@@ -29,6 +29,7 @@ class CoDoBo
   def run
     puts 'Starting discord bot...'
     discord.run(true)
+    discord.game = 'github/CodeDoctorDE'
     puts 'Successfully started discord bot!'
     @moduleManager.run
     @consoleCommand.run
@@ -37,7 +38,6 @@ class CoDoBo
   def exit
     puts 'Bye'
     discord.stop(false)
-    discord.game = 'github/CodeDoctorDE'
     @moduleManager.exit
     @consoleCommand.stop
   end

@@ -65,7 +65,7 @@ class CoDoBo
         join(server, true)
       end
       @bot.discord.server_create do |event|
-        puts "Creating server #{server.name}(#{server.id})..."
+        puts "Creating server #{event.server.name}(#{event.server.id})..."
         join(event.server, false)
       end
     end
