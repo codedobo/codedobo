@@ -4,6 +4,10 @@ require_relative './uno-module.rb'
 class UnoModule
   class MatchMaking
     class Game
+      def Card
+        def initialize; end
+      end
+      @ingamePlayers
       def initialize(matchMaking, category, language)
         @matchMaking = matchMaking
         @category = category
@@ -16,6 +20,7 @@ class UnoModule
         @message.create_reaction('✖')
         @message.pin
         @players = []
+        @ingamePlayers = []
         @userChannels = {}
         channel.server.roles.each do |role|
           channel.define_overwrite(role, Discordrb::Permissions.new, Discordrb::Permissions.new(%i[read_messages add_reactions send_messages]))

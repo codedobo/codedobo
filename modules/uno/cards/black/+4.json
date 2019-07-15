@@ -1,0 +1,20 @@
+{
+    "special": {
+        "choose": {},
+        "get": {
+            "count": 4
+        }
+    },
+    "before": [
+        "blue",
+        "green",
+        "red",
+        "yellow"
+    ],
+    "after": [
+        "blue",
+        "green",
+        "red",
+        "yellow"
+    ]
+}
