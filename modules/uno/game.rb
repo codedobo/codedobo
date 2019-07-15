@@ -145,6 +145,7 @@ class UnoModule
 
     def react(event)
       if event.message.id == @hubMessage.id
+        event.message.delete_reaction(event.user, event.emoji.name)
         case event.emoji.name
         when '▶'
           event.channel.send_message 'Play!'
@@ -153,7 +154,6 @@ class UnoModule
         when '🔒'
           event.channel.send_message 'Private!'
         end
-        event.message.delete_reaction(event.user, event.emoji.name)
       end
     end
 end
