@@ -33,7 +33,7 @@ class UnoModule
               event.send_temporary_message format(commandLanguage['category']['get']['usage']), 10
             end
           when *commandLanguage['category']['set']['aliases']
-            if args.length == 1
+            if args.length == 2
               if args[1].numeric?
                 channel = event.bot.channel(args[1].to_i)
                 if channel.nil?
@@ -42,11 +42,15 @@ class UnoModule
                   if channel.category?
                     @client.query("UPDATE `uno` SET CATEGORY=#{channel.id} WHERE SERVERID=#{channel.server.id};")
                     event.send_message format(commandLanguage['category']['set']['output'], c: channel.name, i: channel.id)
-                    reload
+                    reload(event.server)
                   else
                     event.send_temporary_message format(commandLanguage['category']['set']['notexist'], c: args[1]), 10
                   end
                 end
+              elsif args.length == 1
+                @client.query("UPDATE `uno` SET CATEGORY=NULL WHERE SERVERID=#{channel.server.id};")
+                event.send_message format(commandLanguage['category']['set']['output'], c: channel.name, i: channel.id)
+                reload(event.server)
               else
                 event.send_temporary_message format(commandLanguage['category']['set']['notexist'], c: args[1]), 10
               end

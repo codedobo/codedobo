@@ -32,6 +32,7 @@
                     "cg"
                 ],
                 "output": "The matchmaking channel is %{c}(%{i})",
+                "usage": "Usage: `uno category`!",
                 "no": "You haven't got a matchmaking channel!"
             },
             "set": {
@@ -45,8 +46,9 @@
                     "scategory",
                     "scg"
                 ],
-                "usage": "Usage: `uno setcategory <Category>` to set the category for the matchmaking and `uno setcategory [<Category>] to remove the category!",
+                "usage": "Usage: `uno setcategory <Category>` to set the category for the matchmaking and `uno setcategory [<Category>]` to remove the category!",
                 "output": "Successfully set the matchmaking channel to %{c}(%{i})!",
+                "remove": "Successfully remove the matchmaking channel!",
                 "notexist": "Category `%{c}` does not exist or is a channel!"
             },
             "nopermission": "You do not have permission to use this command!"

@@ -29,7 +29,8 @@ class CoDoBo
   def run
     puts 'Starting discord bot...'
     discord.run(true)
-    discord.game = 'github/CodeDoctorDE'
+    discord.game = 'github/CodeDoctorDE'c!uno setcategory 599223484643803136
+
     puts 'Successfully started discord bot!'
     @moduleManager.run
     @consoleCommand.run
