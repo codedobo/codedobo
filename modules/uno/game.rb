@@ -82,7 +82,6 @@ class UnoModule
       def leave(player)
         if @players.include? player
           @players.delete(player)
-          puts @message
           @message.channel.send_message format(@language.getJson(@category.server.id)['messages']['leave'], p: player.name)
           @message.channel.define_overwrite player, Discordrb::Permissions.new, Discordrb::Permissions.new(%i[read_messages add_reactions send_messages])
           close?
