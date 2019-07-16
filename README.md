@@ -6,7 +6,7 @@ Create own modules or use my modules from other repositories. Click on the modul
 
 ### In Development:
 - Games
-    - [UNO](https://github.com/CodeDoctorDE/uno)
+    - [UNO](https://github.com/CodeDoctorDE/codobo-uno)
 - [Main](modules/main)
 
 ## Discord:
