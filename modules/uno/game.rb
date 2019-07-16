@@ -20,7 +20,7 @@ class UnoModule
         end
         attr_accessor :properties
       end
-      @ingamePlayers
+
       def initialize(matchMaking, category, language)
         @matchMaking = matchMaking
         @category = category
@@ -33,7 +33,6 @@ class UnoModule
         @message.create_reaction('✖')
         @message.pin
         @players = []
-        @ingamePlayers = []
         @userChannels = {}
         channel.server.roles.each do |role|
           channel.define_overwrite(role, Discordrb::Permissions.new, Discordrb::Permissions.new(%i[read_messages add_reactions send_messages]))
@@ -53,6 +52,11 @@ class UnoModule
             @userChannels.each(&:delete)
             @userChannels.clear
             @players.each do |player|
+              channel = @category.server.create_channel(@language.getJson(@category.server.id)['category']['lobby']['name'], topic: @language.getJson(@category.server.id)['category']['lobby']['topic'])
+              channel.category = @category
+              @message = channel.send_message(@language.getJson(@category.server.id)['messages']['lobby'])
+              @message.create_reaction('✖')
+              @message.pin
               @userChannels[player]
             end
             @mode = :ingame

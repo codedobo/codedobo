@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'modules/module.rb'
+require_relative 'module.rb'
 require_relative './bot.rb'
 require 'json'
 class CoDoBo

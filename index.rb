@@ -3,7 +3,7 @@
 require 'discordrb'
 require 'json'
 require 'mysql2'
-require_relative './modules/module.rb'
+require_relative './module.rb'
 require_relative './setup.rb'
 require_relative './bot.rb'
 Dir[File.join('.', '**/*.rb')].each do |file|

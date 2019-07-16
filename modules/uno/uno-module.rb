@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../module.rb'
+require_relative '../../module.rb'
 require_relative './user-commands.rb'
 require_relative './game.rb'
 class UnoModule
