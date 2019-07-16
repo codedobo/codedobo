@@ -2,9 +2,11 @@
 
 ## [Features/Modules](modules):
 
+Create own modules or use my modules from other repositories. Click on the modules to open the repository!
+
 ### In Development:
 - Games
-    - [UNO](modules/uno)
+    - [UNO](https://github.com/CodeDoctorDE/uno)
 - [Main](modules/main)
 
 ## Discord:

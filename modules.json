@@ -2,9 +2,5 @@
     {
         "class": "MainModule",
         "file": "main/main-module"
-    },
-    {
-        "class": "UnoModule",
-        "file": "uno/uno-module"
     }
 ]
