@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative './main-module.rb'
+require_relative './index.rb'
 class MainModule
   def setup
     puts 'Set up main module...'

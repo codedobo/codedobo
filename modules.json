@@ -1,6 +1,10 @@
 [
     {
         "class": "MainModule",
-        "file": "main/main-module"
+        "file": "main/index"
+    },
+    {
+        "class": "UnoModule",
+        "file": "uno/index"
     }
 ]

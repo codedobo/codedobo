@@ -6,10 +6,20 @@ require 'mysql2'
 require_relative './module.rb'
 require_relative './setup.rb'
 require_relative './bot.rb'
-Dir[File.join('.', '**/*.rb')].each do |file|
-  puts "Including #{file}..."
-  require_relative file
+puts 'Reading modules.json...'
+file = File.open 'modules.json'
+moduleData = JSON.load file
+file.close
+botModules = []
+moduleData.each do |botModule|
+  puts "Including #{botModule['class']}(#{botModule['file']})..."
+  require_relative "./modules/#{botModule['file']}"
+  botModuleClass = Object.const_get(botModule['class'])
+  botModuleInstance = botModuleClass.new
+  botModules.push(botModuleInstance)
+  puts "Successfully included #{botModule['class']}(#{botModule['file']})..."
 end
+puts 'Successfully read modules.json!'
 
 if ARGV.length != 1
   print 'Please enter a token: '
@@ -26,6 +36,6 @@ databaseData = JSON.load file
 file.close
 client = Mysql2::Client.new(host: databaseData['host'], username: databaseData['username'], password: databaseData['password'], database: databaseData['database'])
 puts 'Successfully connected to mysql!'
-coDoBo = CoDoBo.new(bot, client, [UnoModule.new, MainModule.new])
+coDoBo = CoDoBo.new(bot, client, botModules)
 puts 'Successfully started CoDoBo!'
 coDoBo.run
