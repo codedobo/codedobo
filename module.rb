@@ -22,9 +22,9 @@ module BotModule
 
   def stop; end
   class Language
-    def initialize(name, client)
+    def initialize(path, client)
       @language = {}
-      @name = name
+      @path = path
       @client = client
       load
     end
@@ -37,7 +37,7 @@ module BotModule
     end
 
     def get(serverID)
-      path = "language/#{@language[serverID]}/#{@name}.json"
+      path = "#{@path}/#{@language[serverID]}.json"
       file = File.open path
       file
     end
