@@ -3,23 +3,24 @@
 require 'discordrb'
 require 'json'
 require 'mysql2'
+Dir[File.join('./modules/', '**/*.rb')].each do |file|
+  puts "Including #{file}..."
+  require_relative file
+  puts "Successfully included #{file}!"
+end
 require_relative './module.rb'
 require_relative './setup.rb'
 require_relative './bot.rb'
-puts 'Reading modules.json...'
-file = File.open 'modules.json'
-moduleData = JSON.load file
-file.close
 botModules = []
-moduleData.each do |botModule|
-  puts "Including #{botModule['class']}(#{botModule['file']})..."
-  require_relative "./modules/#{botModule['file']}"
-  botModuleClass = Object.const_get(botModule['class'])
-  botModuleInstance = botModuleClass.new
-  botModules.push(botModuleInstance)
-  puts "Successfully included #{botModule['class']}(#{botModule['file']})..."
+puts 'Adding modules...'
+moduleClasses = ObjectSpace.each_object(Class).select do |c|
+  puts c
+  c.included_modules.include? BotModule
 end
-puts 'Successfully read modules.json!'
+moduleClasses.each do |botModuleClass|
+  botModules.push(botModuleClass.new)
+end
+puts 'Successfully read modules!'
 
 if ARGV.length != 1
   print 'Please enter a token: '
