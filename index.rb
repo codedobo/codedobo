@@ -14,7 +14,6 @@ require_relative './bot.rb'
 botModules = []
 puts 'Adding modules...'
 moduleClasses = ObjectSpace.each_object(Class).select do |c|
-  puts c
   c.included_modules.include? BotModule
 end
 moduleClasses.each do |botModuleClass|
