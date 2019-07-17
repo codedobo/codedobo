@@ -1,0 +1,4 @@
+[submodule "modules/uno"]
+	path = modules/uno
+	url = https://github.com/CodeDoctorDE/codobo-uno.git
+	branch = master
