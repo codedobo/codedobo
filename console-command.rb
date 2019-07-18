@@ -5,8 +5,8 @@ require_relative './bot.rb'
 require 'json'
 class CoDoBo
   class ConsoleCommand
-    def initialize(moduleManager)
-      @moduleManager = moduleManager
+    def initialize(module_manager)
+      @module_manager = module_manager
     end
 
     def run
@@ -19,7 +19,7 @@ class CoDoBo
 
         consoleCommandPrefix = consoleCommandList[0]
         consoleCommandArgs = consoleCommandList[1..-1]
-        puts 'Command not exist!' unless @moduleManager.consoleCommand(consoleCommandPrefix, consoleCommandArgs)
+        puts 'Command not exist!' unless @module_manager.consoleCommand(consoleCommandPrefix, consoleCommandArgs)
       end
     end
 

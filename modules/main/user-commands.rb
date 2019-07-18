@@ -9,18 +9,18 @@ class MainModule
       event.send_temporary_message format(commandLanguage['hello']['output'], u: event.author.username, v: CoDoBo.version, d: @@moduleDeveloper), 10
     elsif commandLanguage['modules']['aliases'].include? command
       moduleClasses = []
-      @moduleManager.modules.each do |botModule|
+      @module_manager.modules.each do |botModule|
         moduleClasses.push(botModule.class.name)
       end
       if args.empty?
-        event.send_temporary_message format(commandLanguage['modules']['output'], c: @moduleManager.modules.length, m: moduleClasses.join(commandLanguage['modules']['delimiter'])), 10
+        event.send_temporary_message format(commandLanguage['modules']['output'], c: @module_manager.modules.length, m: moduleClasses.join(commandLanguage['modules']['delimiter'])), 10
       elsif args.length == 1
         moduleClasses = []
-        @moduleManager.modules.each do |botModule|
+        @module_manager.modules.each do |botModule|
           moduleClasses.push(botModule.class.name)
         end
         if moduleClasses.include? args[0]
-          botModule = @moduleManager.modules[moduleClasses.index args[0]]
+          botModule = @module_manager.modules[moduleClasses.index args[0]]
           botModule.help(event.user, event.channel)
         else
           event.send_temporary_message format(commandLanguage['help']['notexist'], u: event.author.username), 10

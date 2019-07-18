@@ -9,11 +9,11 @@ class MainModule
       true
     elsif %w[re rl rel res rest restart reload].include? command
       puts 'Reloading application...'
-      @moduleManager.bot.restart
+      @module_manager.bot.restart
       true
     elsif %w[exit close quit stop].include? command
       puts 'Exiting application...'
-      @moduleManager.bot.exit
+      @module_manager.bot.exit
       puts 'Bye!'
       exit!
     end

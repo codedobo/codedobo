@@ -17,9 +17,9 @@ class CoDoBo
     @client = client
     @serverPrefix = {}
     setup
-    @moduleManager = CoDoBo::ModuleManager.new(self, client, modules)
-    @consoleCommand = CoDoBo::ConsoleCommand.new(@moduleManager)
-    @userCommand = CoDoBo::UserCommand.new(self, @moduleManager)
+    @module_manager = CoDoBo::ModuleManager.new(self, client, modules)
+    @consoleCommand = CoDoBo::ConsoleCommand.new(@module_manager)
+    @userCommand = CoDoBo::UserCommand.new(self, @module_manager)
   end
   attr_reader :discord
   attr_reader :userCommand
@@ -31,21 +31,21 @@ class CoDoBo
     discord.run(true)
     discord.game = 'github/CodeDoctorDE'
     puts 'Successfully started discord bot!'
-    @moduleManager.run
+    @module_manager.run
     @consoleCommand.run
   end
 
   def exit
     puts 'Bye'
     discord.stop(false)
-    @moduleManager.exit
+    @module_manager.exit
     @consoleCommand.stop
   end
 
   def restart
-    @moduleManager.exit
+    @module_manager.exit
     @consoleCommand.stop
-    @moduleManager.run
+    @module_manager.run
     @consoleCommand.run
   end
 

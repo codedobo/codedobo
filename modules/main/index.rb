@@ -8,13 +8,13 @@ class MainModule
   include BotModule
   @@moduleVersion = '0.5'
   @@moduleDeveloper = 'CodeDoctorDE'
-  def start(client, moduleManager)
+  def start(client, module_manager)
     puts 'Starting main module...'
     @client = client
-    @moduleManager = moduleManager
+    @module_manager = module_manager
     @language = BotModule::Language.new __dir__ + '/language', @client
     setup
-    @moduleManager.bot.discord.message do |event|
+    @module_manager.bot.discord.message do |event|
       message(event)
     end
     puts 'Successfully started main module!'
@@ -33,7 +33,7 @@ class MainModule
   def updatePrefix
     @client.query('SELECT * FROM `main`').each do |row|
       serverID = row['SERVERID']
-      @moduleManager.bot.serverPrefix[serverID] = row['PREFIX']
+      @module_manager.bot.serverPrefix[serverID] = row['PREFIX']
     end
   end
 end

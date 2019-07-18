@@ -2,7 +2,7 @@
 
 module BotModule
   @name = 'Name'
-  def start(language, client, moduleManager); end
+  def start(language, client, module_manager); end
 
   def consoleCommand(_command, _args)
     false
