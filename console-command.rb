@@ -14,11 +14,11 @@ class CoDoBo
       while @run
         print "codobo-#{CoDoBo.version}: "
         consoleCommand = STDIN.gets.chomp
-        consoleCommandList = consoleCommand.split(' ')
-        next if consoleCommandList.empty?
+        consolecommand_list = consoleCommand.split(' ')
+        next if consolecommand_list.empty?
 
-        consoleCommandPrefix = consoleCommandList[0]
-        consoleCommandArgs = consoleCommandList[1..-1]
+        consoleCommandPrefix = consolecommand_list[0]
+        consoleCommandArgs = consolecommand_list[1..-1]
         puts 'Command not exist!' unless @module_manager.consoleCommand(consoleCommandPrefix, consoleCommandArgs)
       end
     end

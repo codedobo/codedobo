@@ -8,15 +8,13 @@ module BotModule
     false
   end
 
-  def userCommand(_command, _args, _event)
+  def user_command(_command, _args, _event)
     false
   end
 
   def join(server, already); end
 
   def help(user, channel); end
-
-  def exit(); end
 
   def reload(server); end
 
@@ -44,7 +42,7 @@ module BotModule
 
     def getJson(serverID)
       data = JSON.load get(serverID)
-      data
+      return data
     end
     attr_reader :name
     attr_reader :language
@@ -82,8 +80,8 @@ class CoDoBo
       exist
     end
 
-    def userCommand(command, args, event)
-      @modules.each { |botModule| botModule.userCommand(command, args, event) }
+    def user_command(command, args, event)
+      @modules.each { |botModule| botModule.user_command(command, args, event) }
     end
 
     def join(server, already)
@@ -94,9 +92,9 @@ class CoDoBo
       ''
     end
 
-    def exit
+    def stop
       puts 'Exiting all modules...'
-      @modules.each(&:exit)
+      @modules.each(&:stop)
       puts 'Successfully exited all modules!'
     end
     attr_reader :modules

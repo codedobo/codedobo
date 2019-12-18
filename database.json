@@ -1,6 +1,6 @@
 {
     "host":"localhost",
     "username":"Bot",
-    "password":"",
+    "password":"bot",
     "database":"Bot_CoDoBo"
 }

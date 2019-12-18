@@ -11,6 +11,7 @@ end
 require_relative './module.rb'
 require_relative './setup.rb'
 require_relative './bot.rb'
+require_relative './user_command.rb'
 botModules = []
 puts 'Adding modules...'
 moduleClasses = ObjectSpace.each_object(Class).select do |c|
