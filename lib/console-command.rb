@@ -12,14 +12,14 @@ class CoDoBo
     def run
       @run = true
       while @run
-        print "codobo-#{CoDoBo.version}: "
+        print "\u001b[37m$ \u001b[32mcpgui-#{CoDoBo.version}\u001b[33m: "
         consoleCommand = STDIN.gets.chomp
         consolecommand_list = consoleCommand.split(' ')
         next if consolecommand_list.empty?
 
         consoleCommandPrefix = consolecommand_list[0]
         consoleCommandArgs = consolecommand_list[1..-1]
-        puts 'Command not exist!' unless @module_manager.consoleCommand(consoleCommandPrefix, consoleCommandArgs)
+        puts "\u001b[91mCommand not exist!" unless @module_manager.consoleCommand(consoleCommandPrefix, consoleCommandArgs)
       end
     end
 

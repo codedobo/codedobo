@@ -3,13 +3,13 @@
 require_relative './bot.rb'
 class CoDoBo
   def setup
-    puts 'Set up up core database...'
+    puts "\u001b[36mSet up up core database..."
     @client.query("CREATE TABLE IF NOT EXISTS `main` (
       `SERVERID` bigint(255) NOT NULL,
       `LANGUAGE` varchar(255) NOT NULL,
       `PREFIX` varchar(255) NOT NULL,
       PRIMARY KEY  (`SERVERID`)
     );")
-    puts 'Successfully set up core databasee!'
+    puts "\u001b[32mSuccessfully set up core database!"
   end
 end

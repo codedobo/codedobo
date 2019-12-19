@@ -5,16 +5,17 @@ class MainModule
   include BotModule
   def consoleCommand(command, _args)
     if command == 'main'
-      puts "Running main@#{@@moduleVersion} module by #{@@moduleDeveloper}!"
+      puts "\u001b[96mRunning main@#{@@moduleVersion} module by #{@@moduleDeveloper}!"
       true
     elsif %w[re rl rel res rest restart reload].include? command
-      puts 'Reloading application...'
+      puts "\u001b[36mReloading application..."
       @module_manager.bot.restart
+      puts "\u001b[32mSuccessfully reloaded application!"
       true
     elsif %w[exit close quit stop].include? command
-      puts 'Exiting application...'
+      puts "\u001b[96mExiting application..."
       @module_manager.bot.exit
-      puts 'Bye!'
+      puts "\u001b[32mBye!"
       exit!
     end
   end

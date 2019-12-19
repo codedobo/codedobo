@@ -59,12 +59,14 @@ class CoDoBo
 
     def run
       @bot.discord.servers.each do |_id, server|
-        puts "Joining server #{server.name}(#{server.id})..."
+        puts "\u001b[36mJoining server #{server.name}(#{server.id})..."
         join(server, true)
+        puts "Successfully joined server #{server.name}(#{server.id})!"
       end
       @bot.discord.server_create do |event|
-        puts "Creating server #{event.server.name}(#{event.server.id})..."
+        puts "\u001b[36mCreating server #{event.server.name}(#{event.server.id})..."
         join(event.server, false)
+        puts "Successfully created server #{event.server.name}(#{event.server.id})!"
       end
     end
 
@@ -93,9 +95,9 @@ class CoDoBo
     end
 
     def stop
-      puts 'Exiting all modules...'
+      puts "\u001b[36mExiting all modules..."
       @modules.each(&:stop)
-      puts 'Successfully exited all modules!'
+      puts "\u001b[32mSuccessfully exited all modules!"
     end
     attr_reader :modules
     attr_reader :bot

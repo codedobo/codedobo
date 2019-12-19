@@ -26,10 +26,10 @@ class CoDoBo
   attr_reader :server_prefix
   attr_reader :console_command
   def run
-    puts 'Starting discord bot...'
+    puts "\u001b[36mStarting discord bot..."
     discord.run(true)
     discord.game = 'github/CodeDoctorDE'
-    puts 'Successfully started discord bot!'
+    puts "\u001b[32mSuccessfully started discord bot!"
     @module_manager.run
     @console_command.run
   end

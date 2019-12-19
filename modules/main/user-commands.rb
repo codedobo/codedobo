@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative './index.rb'
-require_relative '../../bot.rb'
 class MainModule
   def user_command(command, args, event)
     command_language = @language.getJson(event.server.id)['commands']
@@ -38,7 +37,16 @@ class MainModule
     end
   end
 
+
+  #
+  # Send the help message
+  #
+  # @param [<Type>] _user <description>
+  # @param [<Type>] channel <description>
+  #
+  # @return [<Type>] <description>
+  #
   def help(_user, channel)
-    channel << format(@language.getJson(channel.server.id)['help'])
+    channel. << format(@language.getJson(channel.server.id)['help'])
   end
 end

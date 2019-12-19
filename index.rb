@@ -3,24 +3,24 @@
 require 'discordrb'
 require 'json'
 require 'mysql2'
+require_relative './lib/module.rb'
+require_relative './lib/setup.rb'
+require_relative './lib/bot.rb'
+require_relative './lib/user_command.rb'
 Dir[File.join('./modules/', '**/*.rb')].each do |file|
-  puts "Including #{file}..."
+  puts "\u001b[36mIncluding #{file}..."
   require_relative file
-  puts "Successfully included #{file}!"
+  puts "\u001b[32mSuccessfully included #{file}!"
 end
-require_relative './module.rb'
-require_relative './setup.rb'
-require_relative './bot.rb'
-require_relative './user_command.rb'
 botModules = []
-puts 'Adding modules...'
+puts "\u001b[36mAdding modules..."
 moduleClasses = ObjectSpace.each_object(Class).select do |c|
   c.included_modules.include? BotModule
 end
 moduleClasses.each do |botModuleClass|
   botModules.push(botModuleClass.new)
 end
-puts 'Successfully read modules!'
+puts "\u001b[32mSuccessfully read modules!"
 
 if ARGV.length != 1
   print 'Please enter a token: '
@@ -29,14 +29,14 @@ else
   botToken = ARGV[0]
 end
 
-puts 'Starting CoDoBo...'
+puts "\u001b[36mStarting CoDoBo..."
 bot = Discordrb::Bot.new token: botToken
-puts 'Connecting to mysql...'
+puts "\u001b[36mConnecting to mysql..."
 file = File.open 'database.json'
 databaseData = JSON.load file
 file.close
 client = Mysql2::Client.new(host: databaseData['host'], username: databaseData['username'], password: databaseData['password'], database: databaseData['database'])
-puts 'Successfully connected to mysql!'
+puts "\u001b[32mSuccessfully connected to mysql!"
 coDoBo = CoDoBo.new(bot, client, botModules)
-puts 'Successfully started CoDoBo!'
+puts "\u001b[32mSuccessfully started CoDoBo!"
 coDoBo.run

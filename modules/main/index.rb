@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../../module.rb'
 require_relative './user-commands.rb'
 require_relative './console-commands.rb'
 require_relative './setup.rb'
@@ -9,7 +8,7 @@ class MainModule
   @@moduleVersion = '0.5'
   @@moduleDeveloper = 'CodeDoctorDE'
   def start(client, module_manager)
-    puts 'Starting main module...'
+    puts "\u001b[96mStarting main module..."
     @client = client
     @module_manager = module_manager
     @language = BotModule::Language.new __dir__ + '/language', @client
@@ -17,17 +16,17 @@ class MainModule
     @module_manager.bot.discord.message do |event|
       message(event)
     end
-    puts 'Successfully started main module!'
+    puts "\u001b[32mSuccessfully started main module!"
   end
 
   def join(server, _already)
-    puts "Set up main module for #{server.id}..."
+    puts "\u001b[96mSet up main module for #{server.id}..."
     id = server.id
     language = 'en'
     prefix = '+cdb'
     @client.query("INSERT INTO `main` VALUES (#{id},'#{language}','#{prefix}') ON DUPLICATE KEY UPDATE LANGUAGE='#{language}', PREFIX='#{prefix}';")
     updatePrefix
-    puts "Successfully set up main module for #{server.id}!"
+    puts "\u001b[32mSuccessfully set up main module for #{server.id}!"
   end
 
   def updatePrefix
