@@ -9,7 +9,8 @@
                 "info",
                 "information",
                 "me",
-                "i"
+                "i",
+                ""
             ],
             "output": "Hello %{u}! You are using CoDoBo version %{v} by %{d} (https://github.com/CodeDoctorDE). \r\nUse `modules` to see all modules!"
         },

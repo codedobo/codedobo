@@ -4,6 +4,12 @@ require_relative './bot.rb'
 class CoDoBo
   # This class handle the commands from the users in the discord server
   class UserCommand
+    #
+    # The command manager for all user commands in the guilds!
+    #
+    # @param [CoDoBo] bot
+    # @param [CoDoBo::ModuleManager] module_manager
+    #
     def initialize(bot, module_manager)
       @bot = bot
       @module_manager = module_manager
@@ -13,6 +19,14 @@ class CoDoBo
       end
     end
     attr_reader :bot
+
+    #
+    # Run an user command
+    #
+    # @param [Discordrb::Events::MessageEvent] event The send event
+    #
+    # @return [<Type>] <description>
+    #
     def run(event)
       if bot.server_prefix
         if bot.server_prefix.include? event.server.id
@@ -24,6 +38,8 @@ class CoDoBo
               command = command_list[0]
               command_args = command_list[1..-1]
               @module_manager.user_command(command, command_args, event)
+            else
+              @module_manager.user_command("", nil, event)
             end
           end
         end
