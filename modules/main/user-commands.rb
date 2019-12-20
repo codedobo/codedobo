@@ -37,16 +37,7 @@ class MainModule
     end
   end
 
-
-  #
-  # Send the help message
-  #
-  # @param [<Type>] _user <description>
-  # @param [<Type>] channel <description>
-  #
-  # @return [<Type>] <description>
-  #
   def help(_user, channel)
-    channel. << format(@language.getJson(channel.server.id)['help'])
+    channel.send_message format(@language.getJson(channel.server.id)['help'])
   end
 end

@@ -2,6 +2,13 @@
 
 module BotModule
   @name = 'Name'
+  #
+  # When the bot starts
+  #
+  # @param [CoDoBo::Configuration] language <description>
+  # @param [Mysql2::Client] client MySQL Client
+  # @param [CoDoBo::ModuleManager] module_manager
+  #
   def start(language, client, module_manager); end
 
   def consoleCommand(_command, _args)
@@ -14,6 +21,14 @@ module BotModule
 
   def join(server, already); end
 
+  #
+  # Send the help message
+  #
+  # @param [Discordrb::User] user
+  # @param [Discordrb::Channel] channel
+  #
+  # @return [String]
+  #
   def help(user, channel); end
 
   def reload(server); end

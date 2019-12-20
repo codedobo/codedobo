@@ -1,5 +1,3 @@
 # CoDoBo » Modules » Main
 
-## Version:
-
-0.5
+Version: 0.5
