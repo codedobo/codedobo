@@ -22,10 +22,10 @@ class MainModule
           botModule = @module_manager.modules[moduleClasses.index args[0]]
           botModule.help(event.user, event.channel)
         else
-          event << format(command_language['help']['notexist'], u: event.author.username)
+          event << format(command_language['modules']['notexist'], u: event.author.username, m: args[0])
         end
       else
-        event << format(command_language['help']['usage'], u: event.author.username)
+        event << format(command_language['modules']['usage'], u: event.author.username)
       end
     end
   end
@@ -38,6 +38,6 @@ class MainModule
   end
 
   def help(_user, channel)
-    channel.send_message format(@language.getJson(channel.server.id)['help'])
+    channel.send_message format(@language.getJson(channel.server.id)['help','message'])
   end
 end

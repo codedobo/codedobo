@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 require 'json'
-# The main class of the app
-class CPGUI
+class CoDoBo
   # This class handle the modules
   class ModuleManager
     def initialize(cpgui)
@@ -46,13 +45,24 @@ class CPGUI
     # Stop the module manager
     # @return [void]
     def stop
+      puts "\u001b[36mExiting all modules..."
       @modules.each(&:disable!)
+      puts "\u001b[32mSuccessfully exited all modules!"
     end
 
     # Start the module manager
     # @return [void]
     def start
-      @modules.each(&:enable!)
+        @bot.discord.servers.each do |_id, server|
+          puts "\u001b[36mJoining server #{server.name}(#{server.id})..."
+          join(server, true)
+          puts "Successfully joined server #{server.name}(#{server.id})!"
+        end
+        @bot.discord.server_create do |event|
+          puts "\u001b[36mCreating server #{event.server.name}(#{event.server.id})..."
+          join(event.server, false)
+          puts "Successfully created server #{event.server.name}(#{event.server.id})!"
+        end
     end
 
     # Stop and start the module manager
@@ -135,6 +145,19 @@ class CPGUI
 
     # @return [CPGUI::ModuleManager::CommandManager]
     attr_reader :command_manager
+
+
+    #
+    # Run the join command on all modules
+    #
+    # @param [Discordrb::Server] server
+    # @param [TrueClass] already If this server is new for this bot
+    #
+    # @return [void]
+    #
+    def join(server, already)
+      @modules.each { |botModule| botModule.join(server, already) }
+    end
 
     private
 

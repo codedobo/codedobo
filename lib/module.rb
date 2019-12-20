@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 module BotModule
+  # Bot module name
   @name = 'Name'
+
   #
   # When the bot starts
   #
