@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative './console-command.rb'
+require_relative './console_cmd_manager.rb'
 require_relative './setup.rb'
 class String
   def numeric?
@@ -10,15 +10,16 @@ class String
   end
 end
 class CoDoBo
-  @@version = '0.5'
-  def initialize(discord, client, modules)
+  @@version = 'Alpha 0.5'
+  def initialize(discord, client)
     @discord = discord
     @client = client
     @server_prefix = {}
     setup
-    @module_manager = CoDoBo::ModuleManager.new(self, client, modules)
-    @console_command = CoDoBo::ConsoleCommand.new(@module_manager)
-    @user_command = CoDoBo::UserCommand.new(self, @module_manager)
+    @module_manager = CoDoBo::ModuleManager.new(self, client)
+    @user_cmd_manager = CoDoBo::UserCommandManager.new(self, @module_manager)
+    @console_cmd_manager = CoDoBo::ConsoleCommandManager.new(self, @module_manager)
+    @module_manager.detect
   end
   attr_reader :discord
   attr_reader :user_command
@@ -29,23 +30,26 @@ class CoDoBo
     puts "\u001b[36mStarting discord bot..."
     discord.run(true)
     discord.game = 'gitlab/CodeDoctorDE'
+    @module_manager.start
+    @console_cmd_manager.run
+    @user_cmd_manager.run
     puts "\u001b[32mSuccessfully started discord bot!"
-    @module_manager.run
-    @console_command.run
   end
 
-  def exit
+  def stop
     puts 'Bye'
     discord.stop(false)
     @module_manager.stop
-    @console_command.stop
+    @console_cmd_manager.stop
   end
 
   def restart
+    @user_cmd_manager.stop
+    @console_cmd_manager.stop
     @module_manager.stop
-    @console_command.stop
     @module_manager.run
-    @console_command.run
+    @console_cmd_manager.run
+    @user_cmd_manager.run
   end
 
   def self.version

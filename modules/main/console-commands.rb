@@ -2,7 +2,7 @@
 
 require_relative './index.rb'
 class MainModule
-  include BotModule
+  include CoDoBo::BotModule
   def consoleCommand(command, _args)
     if command == 'main'
       puts "\u001b[96mRunning main@#{@@moduleVersion} module by #{@@moduleDeveloper}!"

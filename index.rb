@@ -1,26 +1,21 @@
 # frozen_string_literal: true
+# @return [void]
+def send_message(message)
+  puts "\e[35m[Loader] " + message + "\e[0m"
+end
+
+send_message "\e[33mWelcome to the CoDoBo! Starting bot..."
 
 require 'discordrb'
 require 'json'
 require 'mysql2'
-require_relative './lib/module.rb'
-require_relative './lib/setup.rb'
-require_relative './lib/bot.rb'
-require_relative './lib/user_command.rb'
-Dir[File.join('./modules/', '**/*.rb')].each do |file|
-  puts "\u001b[36mIncluding #{file}..."
+send_message "\e[33mReading lib folder..."
+Dir[File.join('./lib', '**/*.rb')].each do |file|
+  send_message "\e[33mIncluding #{file}..."
   require_relative file
-  puts "\u001b[32mSuccessfully included #{file}!"
+  send_message "\e[32mSuccessfully included #{file}!"
 end
-botModules = []
-puts "\u001b[36mAdding modules..."
-moduleClasses = ObjectSpace.each_object(Class).select do |c|
-  c.included_modules.include? BotModule
-end
-moduleClasses.each do |botModuleClass|
-  botModules.push(botModuleClass.new)
-end
-puts "\u001b[32mSuccessfully read modules!"
+send_message "\e[32mSuccessfully read lib folder!"
 
 if ARGV.length != 1
   print 'Please enter a token: '
@@ -29,14 +24,13 @@ else
   botToken = ARGV[0]
 end
 
-puts "\u001b[36mStarting CoDoBo..."
 bot = Discordrb::Bot.new token: botToken
 puts "\u001b[36mConnecting to mysql..."
 file = File.open 'database.json'
 databaseData = JSON.load file
 file.close
 client = Mysql2::Client.new(host: databaseData['host'], username: databaseData['username'], password: databaseData['password'], database: databaseData['database'])
-puts "\u001b[32mSuccessfully connected to mysql!"
-coDoBo = CoDoBo.new(bot, client, botModules)
-puts "\u001b[32mSuccessfully started CoDoBo!"
+send_message "\u001b[32mSuccessfully connected to mysql!"
+coDoBo = CoDoBo.new(bot, client)
+send_message "\u001b[32mSuccessfully started CoDoBo!"
 coDoBo.run

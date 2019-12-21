@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-class CPGUI
+class CoDoBo
   # Every module must be a child of this module
-  module AppModule
-    # @param app_class [CPGUI::AppClass]
-    # @param module_manager [CPGUI::ModuleManager]
+  module BotModule
+    # @param app_class [CoDoBo::AppClass]
+    # @param module_manager [CoDoBo::ModuleManager]
     def initialize(app_class, module_manager)
       @module_manager = module_manager
       @app_class = app_class
@@ -22,17 +22,20 @@ class CPGUI
     # @return [void]
     def on_disable; end
 
-    # Handle console commands.
-    # @note Add this method to your module to do something
-    #   if a command was entered
-    # @deprecated Use the method {AppClass.register} instead!
-    def console; end
-
     # Set the prefix of the module for the send and error method
     # @return [String] prefix
     def prefix
       '[' + self.class.to_s + '] '
     end
+    
+    #
+    # When the bot joined on a server
+    #
+    # @param [Discordrb::Server] server
+    # @param [TrueClass] already If the bot was already on this server
+    #
+    # @return [void]
+    def join(server, already); end
 
     # Send the message with the prefix
     # @return [void]
@@ -52,7 +55,7 @@ class CPGUI
     def help(_args)
       error 'No help for this module!'
     end
-    # @return [CPGUI::AppClass]
+    # @return [CoDoBo::AppClass]
     attr_reader :app_class
   end
 end

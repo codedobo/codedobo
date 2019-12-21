@@ -1,48 +1,72 @@
 # frozen_string_literal: true
 
-class CPGUI
-  # Every CPGUI module has this class to manage the module with
+class CoDoBo
+  # Every CoDoBo module has this class to manage the module with
   # for example the enable
-  class AppClass
+  class BotClass
     # @param properties [Hash(String, Object)]
-    # @param main_class [Class(CPGUI::AppModule)]
-    # @param module_manager [CPGUI::ModuleManager]
+    # @param main_class [Class(CoDoBo::AppModule)]
+    # @param module_manager [CoDoBo::ModuleManager]
     # @param enable [Boolean]
     def initialize(properties, main_class, module_manager, enable = true)
       @properties = properties
       @app_module = main_class.new(self, module_manager)
       @module_manager = module_manager
       @enabled = false
-      @commands = {}
+      @user_commands = {}
+      @console_commands = {}
       enable! if enable
     end
     # @return [Hash(String, Object)]
     attr_reader :properties
-    # @return [CPGUI::AppModule]
+    # @return [CoDoBo::BotModule]
     attr_reader :app_module
 
-    # Register a command for the CPGUI::CommandManager
+    # Register a user command for the CoDoBo::UserCommandManager
+    # @param symbol [Symbol]
+    # @param aliases [Hash<String, String>] Hash<ServerID, Aliases>
+    # @yield [command, args]
+    # @yieldparam command [String]
+    # @yieldparam args [Array(String)]
+    # @return [void]
+    def register_user_cmd(symbol, aliases, &block)
+      @user_commands[symbol] = Command.new(aliases) do |*params|
+        block.call(*params)
+      end
+    end
+
+    # Unregister a user command for the CoDoBo::UserCommandManager
+    # @param symbol [Symbol]
+    # @return [void]
+    def unregister_user_cmd(symbol)
+      @user_commands.delete(symbol)
+    end
+
+    # @return [Hash(Symbol,CoDoBo::Command)]
+    attr_reader :user_commands
+
+    # Register a console command for the CoDoBo::ConsoleCommandManager
     # @param symbol [Symbol]
     # @param aliases [Array(String)]
     # @yield [command, args]
     # @yieldparam command [String]
     # @yieldparam args [Array(String)]
     # @return [void]
-    def register(symbol, aliases, &block)
-      @commands[symbol] = Command.new(aliases) do |*params|
+    def register_console_cmd(symbol, aliases, &block)
+      @console_commands[symbol] = Command.new(aliases) do |*params|
         block.call(*params)
       end
     end
 
-    # Unregister a command for the CPGUI::CommandManager
+    # Unregister a console command for the CoDoBo::ConsoleCommandManager
     # @param symbol [Symbol]
     # @return [void]
-    def unregister(symbol)
-      @commands.delete(symbol)
+    def unregister_console_cmd(symbol)
+      @user_commands.delete(symbol)
     end
 
-    # @return [Hash(Symbol,CPGUI::Command)]
-    attr_reader :commands
+    # @return [Hash(Symbol,CoDoBo::Command)]
+    attr_reader :console_commands
 
     # Enable/Disable the module
     # @return [void]

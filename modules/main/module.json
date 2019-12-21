@@ -1,0 +1,15 @@
+{
+    "name": "MainModule",
+    "version": "Alpha 0.5",
+    "main": {
+        "file": "index.rb",
+        "class": "MainModule"
+    },
+    "website": "https://github.com/CodeDoctorDE/codobo",
+    "devs": [
+        "CodeDoctorDE"
+    ],
+    "compactible": [
+        "Alpha 0.5"
+    ]
+}

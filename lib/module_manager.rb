@@ -4,11 +4,11 @@ require 'json'
 class CoDoBo
   # This class handle the modules
   class ModuleManager
-    def initialize(cpgui)
+    def initialize(bot,client)
+      @bot = bot
       language_dir = File.join(__dir__, '../language')
-      @language = CPGUI::Language.new(@config.get('language'), language_dir)
-      @command_manager = CPGUI::CommandManager.new(self)
-      @cpgui = cpgui
+      @client = client
+      # @type [Array(BotClass)]
       @modules = []
     end
 
@@ -34,7 +34,7 @@ class CoDoBo
 
     # Get the app module instance from String
     # @param string [String] Class String
-    # @return [CPGUI::AppClass]
+    # @return [CoDoBo::AppClass]
     def get_module_by_string(string)
       strings = module_strings
       return nil if strings.index(string).nil?
@@ -73,11 +73,16 @@ class CoDoBo
     end
 
     # Modules from the module manager
-    # @return [Array(CPGUI::AppClass)]
+    # @return [Array(CoDoBo::AppClass)]
     attr_reader :modules
 
+
+    # MySQL Client
+    # @return [Mysql2::Client]
+    attr_reader :client
+
     # Get the help of the module
-    # @param app_module_class [Class(CPGUI::AppClass)]
+    # @param app_module_class [Class(CoDoBo::AppClass)]
     # @param args [Array(String)]
     # @return [String]
     def help(app_module_class, args)
@@ -89,7 +94,7 @@ class CoDoBo
     end
 
     # Get the module instance of the module class
-    # @return [CPGUI::AppModule]
+    # @return [CoDoBo::AppModule]
     def get(app_module_class)
       modules.each do |app_module|
         return app_module if app_module.class == app_module_class
@@ -112,11 +117,11 @@ class CoDoBo
       return unless File.file? File.join(folder, './module.json')
 
       json = JSON.parse(File.read(File.join(folder, './module.json')))
-      no_comp = @language.get('module', 'no-compactible')
+      no_comp = "\u001b[34mThe module %{module} may not be optimized for its core version. Please try to use the right version! \r\nOptimized versions: %{version}"
       name = json['name']
       versions = json['compactible']
       no_comp = format(no_comp, module: name, version: versions)
-      send_message no_comp unless versions.include? @cpgui.version
+      send_message no_comp unless versions.include? CoDoBo.version
       load_folder(folder, json)
     end
 
@@ -128,22 +133,22 @@ class CoDoBo
       add_module(main_class, json)
     end
 
-    # @param main_class [Class(CPGUI::AppModule)]
+    # @param main_class [Class(CoDoBo::AppModule)]
     # @param properties [Hash(String)]
     def add_module(main_class, properties)
-      adding = @language.get('module', 'adding')
+      adding = "\u001b[33mAdding module %{module}..."
       send_message format(adding, module: main_class.to_s)
-      app_class = AppClass.new(properties, main_class, self)
+      app_class = BotClass.new(properties, main_class, self)
       @modules.push(app_class)
-      added = @language.get('module', 'added')
+      added = "\u001b[32mSuccessfully added module %{module}!"
       send_message format(added, module: main_class.to_s)
     end
 
     # The main class
-    # @return [CPGUI]
-    attr_reader :cpgui
+    # @return [CoDoBo]
+    attr_reader :bot
 
-    # @return [CPGUI::ModuleManager::CommandManager]
+    # @return [CoDoBo::ModuleManager::CommandManager]
     attr_reader :command_manager
 
 
@@ -156,7 +161,7 @@ class CoDoBo
     # @return [void]
     #
     def join(server, already)
-      @modules.each { |botModule| botModule.join(server, already) }
+      @modules.each { |botClass| botClass.app_module.join(server, already) }
     end
 
     private
@@ -165,7 +170,7 @@ class CoDoBo
     # @param message [String]
     # @return void
     def send_message(message)
-      puts @language.get('console', 'prefix') + message
+      puts "\u001b[32m[ModuleManager] " + message
     end
   end
 end
