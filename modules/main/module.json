@@ -1,6 +1,6 @@
 {
     "name": "MainModule",
-    "version": "Alpha 0.5",
+    "version": "Alpha 1.0",
     "main": {
         "file": "index.rb",
         "class": "MainModule"
@@ -10,6 +10,6 @@
         "CodeDoctorDE"
     ],
     "compactible": [
-        "Alpha 0.5"
+        "Alpha 1.0"
     ]
 }

@@ -4,7 +4,7 @@ require 'json'
 class CoDoBo
   # This class handle the modules
   class ModuleManager
-    def initialize(bot,client)
+    def initialize(bot, client)
       @bot = bot
       language_dir = File.join(__dir__, '../language')
       @client = client
@@ -45,24 +45,25 @@ class CoDoBo
     # Stop the module manager
     # @return [void]
     def stop
-      puts "\u001b[36mExiting all modules..."
+      send_message "\u001b[36mExiting all modules..."
       @modules.each(&:disable!)
-      puts "\u001b[32mSuccessfully exited all modules!"
+      send_message "\u001b[32mSuccessfully exited all modules!"
     end
 
     # Start the module manager
     # @return [void]
     def start
-        @bot.discord.servers.each do |_id, server|
-          puts "\u001b[36mJoining server #{server.name}(#{server.id})..."
-          join(server, true)
-          puts "Successfully joined server #{server.name}(#{server.id})!"
-        end
-        @bot.discord.server_create do |event|
-          puts "\u001b[36mCreating server #{event.server.name}(#{event.server.id})..."
-          join(event.server, false)
-          puts "Successfully created server #{event.server.name}(#{event.server.id})!"
-        end
+      @modules.each(&:enable!)
+      @bot.discord.servers.each do |_id, server|
+        send_message "\u001b[36mJoining server #{server.name}(#{server.id})..."
+        join(server, true)
+        send_message "Successfully joined server #{server.name}(#{server.id})!"
+      end
+      @bot.discord.server_create do |event|
+        send_message "\u001b[36mCreating server #{event.server.name}(#{event.server.id})..."
+        join(event.server, false)
+        send_message "Successfully created server #{event.server.name}(#{event.server.id})!"
+      end
     end
 
     # Stop and start the module manager
@@ -75,7 +76,6 @@ class CoDoBo
     # Modules from the module manager
     # @return [Array(CoDoBo::AppClass)]
     attr_reader :modules
-
 
     # MySQL Client
     # @return [Mysql2::Client]
@@ -126,7 +126,7 @@ class CoDoBo
     end
 
     # @param folder [String]
-    # @param json [Hash(Hash, Object)]
+    # @param json [Hash{Hash=> Object}]
     def load_folder(folder, json)
       load File.join(folder, json['main']['file'])
       main_class = Object.const_get(json['main']['class'])
@@ -134,7 +134,7 @@ class CoDoBo
     end
 
     # @param main_class [Class(CoDoBo::AppModule)]
-    # @param properties [Hash(String)]
+    # @param properties [Hash{String=>Object}]
     def add_module(main_class, properties)
       adding = "\u001b[33mAdding module %{module}..."
       send_message format(adding, module: main_class.to_s)
@@ -150,7 +150,6 @@ class CoDoBo
 
     # @return [CoDoBo::ModuleManager::CommandManager]
     attr_reader :command_manager
-
 
     #
     # Run the join command on all modules

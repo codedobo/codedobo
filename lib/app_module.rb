@@ -3,7 +3,7 @@
 class CoDoBo
   # Every module must be a child of this module
   module BotModule
-    # @param app_class [CoDoBo::AppClass]
+    # @param app_class [CoDoBo::BotClass]
     # @param module_manager [CoDoBo::ModuleManager]
     def initialize(app_class, module_manager)
       @module_manager = module_manager

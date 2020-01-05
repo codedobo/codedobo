@@ -22,6 +22,7 @@ class CoDoBo
     def prefix
       @language.get('console', 'prefix')
     end
+
     # Print prefix and handle the input of the console
     # @return [void]
     def input
@@ -77,7 +78,7 @@ class CoDoBo
     def handle_command(command_string, args)
       modules_commands = {}
       @module_manager.modules.each do |app_class|
-        commands = app_class.commands.select do |_symbol, command|
+        commands = app_class.console_commands.select do |_symbol, command|
           return false if command.aliases.nil?
 
           true if command.aliases.include? command_string
@@ -89,7 +90,7 @@ class CoDoBo
     end
 
     # Handle command from this array
-    # @param modules_commands [Hash(CoDoBo::AppModule, Array(String))]
+    # @param modules_commands [Hash{CoDoBo::BotModule=> Array(String)}]
     #   used by CommandManager#handle_command
     # @param command_string [String]
     # @param args [Array(String)]
@@ -117,9 +118,10 @@ class CoDoBo
 
       current_symbol = input_command(symbols) unless symbols.length == 1
       current_symbol = symbols.first if current_symbol.nil?
-      return nil unless app_class.commands.keys.include? current_symbol
+      return nil unless app_class.console_commands.keys.include? current_symbol
 
-      app_class.commands[current_symbol].call(command_string, args)
+      app_class.console_commands[current_symbol].call(command_string, args)
+      true
     end
 
     # @param modules [Array(CoDoBo::AppClass)]
@@ -128,8 +130,8 @@ class CoDoBo
       module_string_list = @module_manager.module_strings
       input = ''
       until module_string_list.include? input
-        send_message "\u001b[36mThis command uses multiple modules. Which module do you want to use? \r\n#{modules.join(", ")}"
-        input = gets.chomp
+        send_message "\u001b[36mThis command uses multiple modules. Which module do you want to use? \r\n#{modules.join(', ')}"
+        input = STDIN.gets.chomp
       end
       modules[module_string_list.index(input)]
     end
@@ -140,8 +142,8 @@ class CoDoBo
       command_string_list = commands.map(&:to_s)
       input = ''
       until command_string_list.include? input
-        send_message "\u001b[36mThis command uses multiple commands. Which command do you want to use? \r\n#{commands.join(", ")}"
-        input = gets.chomp
+        send_message "\u001b[36mThis command uses multiple commands. Which command do you want to use? \r\n#{commands.join(', ')}"
+        input = STDIN.gets.chomp
       end
       commands[command_string_list.index(input)]
     end

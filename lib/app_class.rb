@@ -4,33 +4,34 @@ class CoDoBo
   # Every CoDoBo module has this class to manage the module with
   # for example the enable
   class BotClass
-    # @param properties [Hash(String, Object)]
+    # @param properties [Hash{String => Object}]
     # @param main_class [Class(CoDoBo::AppModule)]
     # @param module_manager [CoDoBo::ModuleManager]
     # @param enable [Boolean]
     def initialize(properties, main_class, module_manager, enable = true)
+      @console_commands = {}
+      @user_commands = {}
       @properties = properties
-      @app_module = main_class.new(self, module_manager)
       @module_manager = module_manager
       @enabled = false
-      @user_commands = {}
-      @console_commands = {}
+      @app_module = main_class.new(self, module_manager)
       enable! if enable
     end
-    # @return [Hash(String, Object)]
+    # @return [Hash{String => Object}]
     attr_reader :properties
     # @return [CoDoBo::BotModule]
     attr_reader :app_module
 
     # Register a user command for the CoDoBo::UserCommandManager
     # @param symbol [Symbol]
-    # @param aliases [Hash<String, String>] Hash<ServerID, Aliases>
-    # @yield [command, args]
+    # @param aliases [Hash{String => String}] Hash{Language => Aliases}
+    # @yield [command, args, event]
     # @yieldparam command [String]
     # @yieldparam args [Array(String)]
+    # @yieldparam event [Discordrb::Events::MessageEvent]
     # @return [void]
     def register_user_cmd(symbol, aliases, &block)
-      @user_commands[symbol] = Command.new(aliases) do |*params|
+      @user_commands[symbol] = UserCommand.new(aliases) do |*params|
         block.call(*params)
       end
     end
@@ -42,7 +43,7 @@ class CoDoBo
       @user_commands.delete(symbol)
     end
 
-    # @return [Hash(Symbol,CoDoBo::Command)]
+    # @return [Hash{Symbol=>CoDoBo::UserCommand}]
     attr_reader :user_commands
 
     # Register a console command for the CoDoBo::ConsoleCommandManager
@@ -53,7 +54,7 @@ class CoDoBo
     # @yieldparam args [Array(String)]
     # @return [void]
     def register_console_cmd(symbol, aliases, &block)
-      @console_commands[symbol] = Command.new(aliases) do |*params|
+      @console_commands[symbol] = ConsoleCommand.new(aliases) do |*params|
         block.call(*params)
       end
     end
@@ -65,7 +66,7 @@ class CoDoBo
       @user_commands.delete(symbol)
     end
 
-    # @return [Hash(Symbol,CoDoBo::Command)]
+    # @return [Hash{Symbol=>CoDoBo::ConsoleCommand}]
     attr_reader :console_commands
 
     # Enable/Disable the module

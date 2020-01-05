@@ -10,7 +10,6 @@ class String
   end
 end
 class CoDoBo
-  @@version = 'Alpha 0.5'
   def initialize(discord, client)
     @discord = discord
     @client = client
@@ -21,6 +20,7 @@ class CoDoBo
     @console_cmd_manager = CoDoBo::ConsoleCommandManager.new(self, @module_manager)
     @module_manager.detect
   end
+  # @return [Discordrb::Bot]
   attr_reader :discord
   attr_reader :user_command
   attr_reader :database
@@ -46,13 +46,16 @@ class CoDoBo
   def restart
     @user_cmd_manager.stop
     @console_cmd_manager.stop
-    @module_manager.stop
-    @module_manager.run
+    @module_manager.restart
     @console_cmd_manager.run
     @user_cmd_manager.run
   end
 
   def self.version
-    @@version
+    'Alpha 1.0.0'
+  end
+
+  def self.developer
+    'CodeDoctorDE'
   end
 end

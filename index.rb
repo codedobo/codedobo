@@ -19,7 +19,7 @@ send_message "\e[32mSuccessfully read lib folder!"
 
 if ARGV.length != 1
   print 'Please enter a token: '
-  botToken = gets.chomp
+  botToken = STDIN..chomp
 else
   botToken = ARGV[0]
 end

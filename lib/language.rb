@@ -18,26 +18,12 @@ class CoDoBo
     end
 
     # Returns a hash with the file name as key
-    # @return [Hash<String,String>] Hash(ServerID, Language)
+    # @return [Hash{String=>String}] Hash{ServerID=> Language}
     attr_reader :language
 
     # The folder of the translations
     # @return [String]
     attr_reader :folder
-
-    # Get a value in the language file
-    # @return [Object, nil]
-    def get(*keys)
-      current_section = @languages[@language]
-      return nil if current_section.nil?
-
-      keys.each do |key|
-        return nil unless current_section.key? key
-
-        current_section = current_section[key]
-      end
-      current_section
-    end
 
     def get(serverID)
       path = "#{@folder}/#{@language[serverID]}.json"
@@ -45,9 +31,60 @@ class CoDoBo
       file
     end
 
-    def getJson(serverID)
+    #
+    # Get the json file from the server id
+    #
+    # @param [String] serverID
+    #
+    # @return [Hash]
+    #
+    def get_json(serverID)
       data = JSON.load get(serverID)
       return data
+    end
+
+    #
+    # Get all values from all language files
+    #
+    # @param [Array(String)] *keys
+    #
+    # @return [Array(Object)]
+    #
+    def get_language_array(*keys)
+      array = []
+      get_language_hash(*keys).each do |key, value|
+        array.concat value
+      end
+      array
+    end
+
+    #
+    # Get all values of this key from all language files
+    #
+    # @param [Array(String)] *keys
+    #
+    # @return [Hash{String => Object}]
+    #
+    def get_language_hash(*keys)
+      hash = {}
+      languages.each{ |language|
+        path = "#{@folder}/#{language}.json"
+        data = JSON.load File.open path
+        value = data
+        keys.each {|key|
+          value = value[key]
+        }
+        hash[language] = value
+      }
+      hash
+    end
+
+    def languages
+      languages = []
+      Dir.foreach(@folder) do |file|
+        languages.push File.basename(file,File.extname(file))  if file.end_with?(".json")
+      end
+      languages
     end
 
     # Load all languages from the servers
