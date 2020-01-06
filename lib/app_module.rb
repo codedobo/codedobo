@@ -49,10 +49,15 @@ class CoDoBo
       puts prefix + "\e[31m" + message + "\e[0m"
     end
 
-    # Set the help method to get this via module <Module>
-    # @param _args [Array(String)] arguments
-    # @return [String]
-    def help(_args)
+    #
+    # Send a user help message
+    #
+    # @param [Discordrb::Member, Discordrb::User] user
+    # @param [Discordrb::Channel] channel
+    #
+    # @return [void]
+    #
+    def help(user, channel)
       error 'No help for this module!'
     end
     # @return [CoDoBo::AppClass]

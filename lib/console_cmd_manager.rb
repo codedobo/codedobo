@@ -17,12 +17,6 @@ class CoDoBo
       input while @run
     end
 
-    # The prefix of the console manager
-    # @return [String]
-    def prefix
-      @language.get('console', 'prefix')
-    end
-
     # Print prefix and handle the input of the console
     # @return [void]
     def input

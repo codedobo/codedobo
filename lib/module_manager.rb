@@ -39,7 +39,7 @@ class CoDoBo
       strings = module_strings
       return nil if strings.index(string).nil?
 
-      @modules[strings.index(string)]
+      return @modules[strings.index(string)]
     end
 
     # Stop the module manager

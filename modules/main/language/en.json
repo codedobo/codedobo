@@ -15,6 +15,10 @@
             "notexist": "The module %{m} does not exist!",
             "usage": "Usage: `uno modules [<Module>]`",
             "message": "Help for module main: \r\n-`hello` » Get information about this bot \r\n-`Ping` (without command prefix) » The bot response to you if the bot can write in this channel and is online! \r\n-`modules` » Get information about the modules \r\n\r\n*-* Help for the main module *-*"
+        },
+        "help":{
+            "title":"Main module help",
+            "description":"`info` \nGet the info of the bot \n`mod [<Module>]` \nGet all modules or the help of one"
         }
     }
 }
