@@ -13,6 +13,7 @@ class MainModule
   def register_user_commands
     register_hello_command
     register_module_command
+    register_ping_command
   end
 
   def register_hello_command
@@ -38,13 +39,13 @@ class MainModule
       end
     end
   end
+  
+  def register_ping_command
+    @app_class.register_user_cmd(:ping, %w[ping p]) do |command, args, event|
+      event << format(@language.get_json(event.server.id)['commands']['ping']['output'], u: event.author.username)
+    end
+  end
 
-  # def message(event)
-  #   command_language = @language.get_json(event.server.id)['commands']
-  #   if command_language['ping']['aliases'].include? event.content
-  #     event << format(command_language['ping']['output'], u: event.author.username)
-  #   end
-  # end
 
   def help(_user, channel)
     command_language = @language.get_json(channel.server.id)['commands']['help']
@@ -52,6 +53,7 @@ class MainModule
        embed.title = command_language['title']
        embed.description = command_language['description']
        embed.timestamp = Time.now
+       embed.color = command_language['color']
     end
   end
 end

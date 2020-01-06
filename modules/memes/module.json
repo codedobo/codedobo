@@ -1,0 +1,17 @@
+{
+    "name": "MemesBot",
+    "version": "Alpha 1.0",
+    "main": {
+        "file": "index.rb",
+        "class": "MemesModule"
+    },
+    "website": "https://github.com/CodeDoctorDE/codobo-memes",
+    "devs": [
+        "CodeDoctorDE"
+    ],
+    "dependencies":[
+    ],
+    "compactible": [
+        "Alpha 1.0.0"
+    ]
+}

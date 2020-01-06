@@ -18,7 +18,8 @@
         },
         "help":{
             "title":"Main module help",
-            "description":"`info` \nGet the info of the bot \n`mod [<Module>]` \nGet all modules or the help of one"
+            "description":"`info` \nGet the info of the bot \n`mod [<Module>]` \nGet all modules or the help of one \n`ping` \nPing this bot",
+            "color":3000534
         }
     }
 }
