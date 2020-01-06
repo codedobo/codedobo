@@ -28,7 +28,6 @@ class MainModule
         event << format(command_language['output'], c: @module_manager.modules.length, m: @module_manager.module_strings.join(command_language['delimiter']))
       elsif args.length == 1
         bot_module = @module_manager.get_module_by_string(args[0])
-        puts bot_module.class.to_s
         if bot_module
           bot_module.app_module.help(event.user, event.channel)
         else
