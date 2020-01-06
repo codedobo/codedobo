@@ -1,0 +1,16 @@
+{
+    "user":{
+        "multiple":{
+            "modules":{
+                "message":"There are more than one module with this command. Which module do you want to use? `%{m}`",
+                "delimiter":"`, `",
+                "invalid":"This module name is invalid!"
+            },
+            "commands":{
+                "message":"There are more than one command with this name. Which command do you want to use? `%{m}`",
+                "delimiter":"`, `",
+                "invalid":"This command name is invalid!"
+            }
+        }
+    }
+}

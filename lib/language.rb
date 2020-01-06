@@ -44,21 +44,6 @@ class CoDoBo
     end
 
     #
-    # Get all values from all language files
-    #
-    # @param [Array(String)] *keys
-    #
-    # @return [Array(Object)]
-    #
-    def get_language_array(*keys)
-      array = []
-      get_language_hash(*keys).each do |key, value|
-        array.concat value
-      end
-      array
-    end
-
-    #
     # Get all values of this key from all language files
     #
     # @param [Array(String)] *keys

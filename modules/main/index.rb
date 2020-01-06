@@ -10,9 +10,6 @@ class MainModule include CoDoBo::BotModule
     @app_class = app_class
     @language = CoDoBo::Language.new module_manager.client, __dir__ + '/language'
     setup
-    @module_manager.bot.discord.message do |event|
-      message(event)
-    end
     send_message "\u001b[32mSuccessfully started main module!"
   end
   def on_enable

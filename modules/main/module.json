@@ -9,6 +9,8 @@
     "devs": [
         "CodeDoctorDE"
     ],
+    "dependencies":[
+    ],
     "compactible": [
         "Alpha 1.0"
     ]

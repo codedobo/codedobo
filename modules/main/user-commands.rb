@@ -36,27 +36,25 @@ class MainModule
   end
 
   def register_hello_command
-    puts @language.get_language_hash("commands","hello","aliases")
-    @app_class.register_user_cmd(:hello, @language.get_language_array("commands", "hello","aliases")) do |command, args, event|
+    @app_class.register_user_cmd(:hello, ['','hello', 'hi', 'info']) do |_command, _args, event|
       event << format(@language.get_json(event.server.id)['commands']['hello']['output'], u: event.author.username, v: CoDoBo.version, d: CoDoBo.developer)
     end
   end
 
   def register_new_command
-    puts @language.get_language_hash("commands","hello","aliases")
-    @app_class.register_user_cmd(:new, @language.get_language_array("commands", "hello","aliases")) do |command, args, event|
+    @app_class.register_user_cmd(:new, %w[hello hi info]) do |_command, _args, event|
       event << format(@language.get_json(event.server.id)['commands']['hello']['output'], u: event.author.username, v: CoDoBo.version, d: CoDoBo.developer)
     end
   end
 
-  def message(event)
-    command_language = @language.get_json(event.server.id)['commands']
-    if command_language['ping']['aliases'].include? event.content
-      event << format(command_language['ping']['output'], u: event.author.username)
-    end
-  end
+  # def message(event)
+  #   command_language = @language.get_json(event.server.id)['commands']
+  #   if command_language['ping']['aliases'].include? event.content
+  #     event << format(command_language['ping']['output'], u: event.author.username)
+  #   end
+  # end
 
   def help(_user, channel)
-    channel.send_message format(@language.get_json(channel.server.id)['help','message'])
+    channel.send_message format(@language.get_json(channel.server.id)['help', 'message'])
   end
 end

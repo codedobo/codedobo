@@ -7,6 +7,7 @@ class CoDoBo
     # @param properties [Hash{String => Object}]
     # @param main_class [Class(CoDoBo::AppModule)]
     # @param module_manager [CoDoBo::ModuleManager]
+    # @param language [String]
     # @param enable [Boolean]
     def initialize(properties, main_class, module_manager, enable = true)
       @console_commands = {}

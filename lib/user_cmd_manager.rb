@@ -12,17 +12,13 @@ class CoDoBo
     def initialize(bot, module_manager)
       @module_manager = module_manager
       @bot = bot
-      @module_classes = {}
+      @multiple_commands = {}
+      @multiple_modules = {}
+      @language = CoDoBo::Language.new module_manager.client, __dir__ + '/../language'
 
       @bot.discord.message do |event|
         run(event)
       end
-    end
-
-    # The prefix of the console manager
-    # @return [String]
-    def prefix
-      @language.get('console', 'prefix')
     end
 
     #
@@ -30,34 +26,52 @@ class CoDoBo
     #
     # @param [Discordrb::Events::MessageEvent] event The send event
     #
-    # @return [<Type>] <description>
+    # @return [void]
     #
     def run(event)
       if @multiple_modules.include? [event.author.id, event.server.id]
-
-      end
-      if @bot.server_prefix
-        if @bot.server_prefix.include? event.server.id
-          if event.content.start_with?(@bot.server_prefix[event.server.id])
-            command_string = event.content[@bot.server_prefix[event.server.id].length..-1]
-            command_list = command_string.split(' ')
-
-            if command_list.empty?
-              handle_command('', nil, event)
-            else
-              command = command_list[0]
-              command_args = command_list[1..-1]
-              handle_command(command, command_args, event)
-            end
-          end
+        bot_module = @module_manager.get_module_by_string
+        properties = @multiple_modules[[event.author.id, event.server.id]]
+        if !bot_module.nil? && !properties[:m].include?(bot_module)
+          handle_symbol_commands(properties[:m][bot_module], bot_module, properties[:c], properties[:a], event)
+        else
+          event << @language.get_json(event.server.id)['user']['multiple']['modules']['invalid']
         end
+        @multiple_modules.delete([event.author.id, event.server.id])
+        return
+      end
+      if @multiple_commands.include? [event.author.id, event.server.id]
+        properties = @multiple_commands[[event.author.id, event.server.id]]
+        if properties[:s].map(&:to_s).include?(event.content)
+          symbol = properties[:s][properties[:s].map(&:to_s).index(event.content)]
+          properties[:ac].user_commands[symbol].call(properties[:c], properties[:a], event)
+        else
+          event << @language.get_json(event.server.id)['user']['multiple']['commands']['invalid']
+        end
+        @multiple_commands.delete([event.author.id, event.server.id])
+        return
+      end
+
+      server_prefixes = @bot.server_prefix
+
+      unless event.content.start_with?(server_prefixes[event.server.id]) || server_prefixes.include?(event.server.id)
+        return
+      end
+
+      command_string = event.content[server_prefixes[event.server.id].length..-1]
+      command_list = command_string.split(' ')
+
+      if command_list.empty?
+        handle_command('', nil, event)
+      else
+        handle_command(command_list[0], command_list[1..-1], event)
       end
     end
 
     # Stop the console manager
     # @return [void]
     def stop
-      send_message "\u001b[36mStopping console..."
+      send_message "\u001b[36mStopping user command manager..."
       @run = false
     end
 
@@ -92,7 +106,7 @@ class CoDoBo
     end
 
     # Handle command from this array
-    # @param modules_commands [Hash{CoDoBo::AppModule=> Array(String)}]
+    # @param modules_commands [Hash{CoDoBo::AppModule=> Array(Symbol)}]
     #   used by CommandManager#handle_command
     # @param command_string [String]
     # @param args [Array(String)]
@@ -105,9 +119,12 @@ class CoDoBo
       puts 'test 1.1'
 
       unless modules_commands.length == 1
-        current_module = input_module(modules_commands.keys)
+        module_string_list = @module_manager.module_strings
+        event << format(@language.get_json(event.server.id)['user']['multiple']['modules']['message'], m: module_string_list.join(@language.get_json(event.server.id)['user']['multiple']['modules']['delimiter']))
+        @multiple_modules[[event.author.id, event.server.id]] = { m: modules_commands, c: command_string, a: args }
+        return nil
       end
-      current_module = modules_commands.keys.first if current_module.nil?
+      current_module = modules_commands.keys.first
       symbols = modules_commands[current_module]
       handle_symbol_commands(symbols, current_module, command_string, args, event)
     end
@@ -124,7 +141,11 @@ class CoDoBo
       puts 'test 2'
       return nil if symbols.empty?
 
-      current_symbol = input_command(event, symbols) unless symbols.length == 1
+      unless symbols.length == 1
+        event << format(@language.get_json(event.server.id)['user']['multiple']['commands']['message'], m: symbols.join(@language.get_json(event.server.id)['user']['multiple']['commands']['delimiter']))
+        @multiple_commands[[event.author.id, event.server.id]] = {s: symbols, c: command_string, a: args, ac: app_class}
+        return nil
+      end
       current_symbol = symbols.first if current_symbol.nil?
       return nil unless app_class.user_commands.keys.include? current_symbol
 
@@ -133,27 +154,13 @@ class CoDoBo
       app_class.user_commands[current_symbol].call(command_string, args, event)
     end
 
-    # @param modules [Array(CoDoBo::AppClass)]
-    # @return [CoDoBo::AppClass] current selected module
-    def input_module(modules)
-      puts 'test 3'
-      module_string_list = @module_manager.module_strings
-      input = ''
-      until module_string_list.include? input
-        event << "\u001b[36mThis command uses multiple modules. Which module do you want to use? \r\n#{modules.join(', ')}"
-        @multiple_modules = modules
-        input = STDIN.chomp
-      end
-      modules[module_string_list.index(input)]
-    end
-
     # @param commands [Array(Symbol)]
     # @return [Symbol] current symbol
     def input_command(_event, commands)
       command_string_list = commands.map(&:to_s)
       input = ''
       until command_string_list.include? input
-        send_message "\u001b[36mThis command uses multiple commands. Which command do you want to use? \r\n#{commands.join(', ')}"
+        send_message "\u001b[36mThis command uses multiple commands. Which command do you want to use? \r\n#{commands.join('][')}"
       end
       commands[command_string_list.index(input)]
     end
@@ -161,7 +168,7 @@ class CoDoBo
     # Print the prefix in the console
     # @return [void]
     def print_prefix
-      out = "\u001b[37m$ \u001b[32mcodobo-%{version}\u001b[33m:\u001b[34m%{user}\u001b[33m:\u001b[37m "
+      out = "\u001b[37m$ \u001b[32mcodobo-%<version>\u001b[33m:\u001b[34m%<user>\u001b[33m:\u001b[37m "
       version = CoDoBo.version
       user = ENV['USERNAME']
       print format(out, version: version, user: user)
@@ -175,7 +182,7 @@ class CoDoBo
     # @return [void]
     #
     def send_message(message)
-      puts "\u001b[36m[ConsoleCommandManager] " + message + "\e[0m"
+      puts "\u001b[37m[UserCommandManager] " + message + "\e[0m"
     end
 
     # @param error [StandardError]

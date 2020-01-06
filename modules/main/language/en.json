@@ -1,61 +1,15 @@
 {
     "commands": {
         "hello": {
-            "aliases": [
-                "hello",
-                "hi",
-                "whats-up",
-                "good-day",
-                "info",
-                "information",
-                "me",
-                "i",
-                ""
-            ],
             "output": "Hello %{u}! You are using CoDoBo version %{v} by %{d} (https://github.com/CodeDoctorDE). \r\nUse `modules` to see all modules!"
         },
         "ping": {
-            "aliases": [
-                "ping",
-                "Ping",
-                "ping!",
-                "Ping!"
-            ],
             "output": "Pong! :)"
         },
         "language": {
-            "aliases": [
-                "lang",
-                "language",
-                "lan",
-                "lg"
-            ]
+            "usage":"Usage: `language [<Language>]`"
         },
         "modules": {
-            "aliases": [
-                "addons",
-                "Addons",
-                "Add-ons",
-                "add-ons",
-                "addon",
-                "Addon",
-                "Add-on",
-                "add-on",
-                "plugins",
-                "plug-ins",
-                "Plugins",
-                "Plug-ins",
-                "Plugin",
-                "plugin",
-                "Plug-in",
-                "plug-in",
-                "modules",
-                "Modules",
-                "module",
-                "Module",
-                "Help",
-                "help"
-            ],
             "output": "You are using %{c} modules: %{m}! \r\nUse `module <Module>` for help",
             "delimiter": ", ",
             "notexist": "The module %{m} does not exist!",
