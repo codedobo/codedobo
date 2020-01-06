@@ -36,6 +36,7 @@ class CoDoBo
           handle_symbol_commands(properties[:m][bot_module], bot_module, properties[:c], properties[:a], event)
         else
           event << @language.get_json(event.server.id)['user']['multiple']['modules']['invalid']
+          @multiple_commands.delete([event.author.id, event.server.id])
         end
         @multiple_modules.delete([event.author.id, event.server.id])
         return
@@ -51,10 +52,9 @@ class CoDoBo
         @multiple_commands.delete([event.author.id, event.server.id])
         return
       end
-
       server_prefixes = @bot.server_prefix
 
-      unless event.content.start_with?(server_prefixes[event.server.id]) || server_prefixes.include?(event.server.id)
+      unless event.content.start_with?(server_prefixes[event.server.id])
         return
       end
 
@@ -88,15 +88,10 @@ class CoDoBo
     # @return [Object,nil]
     def handle_command(command_string, args, event)
       modules_commands = {}
-      puts @module_manager.modules
       @module_manager.modules.each do |app_class|
         commands = app_class.user_commands.select do |_symbol, command|
-          puts _symbol
           return false if command.aliases.nil?
 
-          puts command.aliases.include? command_string
-          puts command.aliases.to_json
-          puts "Command: #{command_string}!"
           true if command.aliases.include? command_string
         end
         permit = app_class.enabled? && !commands.empty?
@@ -113,10 +108,7 @@ class CoDoBo
     # @param event [Discordrb::Events::MessageEvent]
     # @return [Object,nil]
     def handle_module_commands(modules_commands, command_string, args, event)
-      puts 'test 1'
       return nil if modules_commands.empty?
-
-      puts 'test 1.1'
 
       unless modules_commands.length == 1
         module_string_list = @module_manager.module_strings
@@ -138,7 +130,6 @@ class CoDoBo
     # @param event [Discordrb::Events::MessageEvent]
     # @return [Object,nil]
     def handle_symbol_commands(symbols, app_class, command_string, args, event)
-      puts 'test 2'
       return nil if symbols.empty?
 
       unless symbols.length == 1
@@ -149,8 +140,6 @@ class CoDoBo
       current_symbol = symbols.first if current_symbol.nil?
       return nil unless app_class.user_commands.keys.include? current_symbol
 
-      puts current_symbol.class
-      puts app_class.user_commands
       app_class.user_commands[current_symbol].call(command_string, args, event)
     end
 
