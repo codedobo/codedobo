@@ -1,7 +1,7 @@
 {
     "commands": {
         "hello": {
-            "output": "Hello %{u}! You are using CoDoBo version %{v} by %{d} (https://github.com/CodeDoctorDE). \r\nUse `modules` to see all modules!"
+            "output": "Hello %{u}! You are using CodeDoBo version %{v} by %{d} (https://github.com/codedobo). \r\nUse `modules` to see all modules!"
         },
         "ping": {
             "output": "Pong! :)"

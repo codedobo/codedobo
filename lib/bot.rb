@@ -9,15 +9,15 @@ class String
     false
   end
 end
-class CoDoBo
+class CodeDoBo
   def initialize(discord, client)
     @discord = discord
     @client = client
     @server_prefix = {}
     setup
-    @module_manager = CoDoBo::ModuleManager.new(self, client)
-    @user_cmd_manager = CoDoBo::UserCommandManager.new(self, @module_manager)
-    @console_cmd_manager = CoDoBo::ConsoleCommandManager.new(self, @module_manager)
+    @module_manager = CodeDoBo::ModuleManager.new(self, client)
+    @user_cmd_manager = CodeDoBo::UserCommandManager.new(self, @module_manager)
+    @console_cmd_manager = CodeDoBo::ConsoleCommandManager.new(self, @module_manager)
     @module_manager.detect
   end
   # @return [Discordrb::Bot]
@@ -29,7 +29,7 @@ class CoDoBo
   def run
     puts "\u001b[36mStarting discord bot..."
     discord.run(true)
-    discord.game = 'github/CodeDoctorDE/codobo'
+    discord.game = 'github/codedobo'
     @module_manager.start
     @console_cmd_manager.run
     @user_cmd_manager.run
@@ -56,6 +56,6 @@ class CoDoBo
   end
 
   def self.developer
-    'CodeDoctorDE'
+    'codedobo'
   end
 end

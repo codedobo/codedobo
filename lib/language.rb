@@ -2,7 +2,7 @@
 
 require 'json'
 
-class CoDoBo
+class CodeDoBo
   class Language
     #
     # Language system for individual servers

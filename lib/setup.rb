@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative './bot.rb'
-class CoDoBo
+class CodeDoBo
   def setup
     puts "\u001b[36mSet up up core database..."
     @client.query("CREATE TABLE IF NOT EXISTS `main` (

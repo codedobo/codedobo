@@ -1,4 +1,4 @@
-# CoDoBo » Modules
+# CodeDoBo » Modules
 
 - [Main](main)
 

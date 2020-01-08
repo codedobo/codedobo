@@ -4,7 +4,7 @@ def send_message(message)
   puts "\e[35m[Loader] " + message + "\e[0m"
 end
 
-send_message "\e[33mWelcome to the CoDoBo! Starting bot..."
+send_message "\e[33mWelcome to the CodeDoBo! Starting bot..."
 
 require 'discordrb'
 require 'json'
@@ -31,6 +31,6 @@ databaseData = JSON.load file
 file.close
 client = Mysql2::Client.new(host: databaseData['host'], username: databaseData['username'], password: databaseData['password'], database: databaseData['database'])
 send_message "\u001b[32mSuccessfully connected to mysql!"
-coDoBo = CoDoBo.new(bot, client)
-send_message "\u001b[32mSuccessfully started CoDoBo!"
+coDoBo = CodeDoBo.new(bot, client)
+send_message "\u001b[32mSuccessfully started CodeDoBo!"
 coDoBo.run

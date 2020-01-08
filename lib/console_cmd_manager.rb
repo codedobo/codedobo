@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-class CoDoBo
+class CodeDoBo
   # Command manager for the module manager
   class ConsoleCommandManager
-    # @param module_manager [CoDoBo::ModuleManager]
+    # @param module_manager [CodeDoBo::ModuleManager]
     def initialize(bot, module_manager)
       @module_manager = module_manager
       @bot = bot
@@ -84,7 +84,7 @@ class CoDoBo
     end
 
     # Handle command from this array
-    # @param modules_commands [Hash{CoDoBo::BotModule=> Array(String)}]
+    # @param modules_commands [Hash{CodeDoBo::BotModule=> Array(String)}]
     #   used by CommandManager#handle_command
     # @param command_string [String]
     # @param args [Array(String)]
@@ -103,7 +103,7 @@ class CoDoBo
     # Handle command from this array
     # @param symbols [Array(Symbol)]
     #   used by CommandManager#handle_module_commands
-    # @param app_class [CoDoBo::AppModule]
+    # @param app_class [CodeDoBo::AppModule]
     # @param command_string [String]
     # @param args [Array(String)]
     # @return [Object,nil]
@@ -118,8 +118,8 @@ class CoDoBo
       true
     end
 
-    # @param modules [Array(CoDoBo::AppClass)]
-    # @return [CoDoBo::AppClass] current selected module
+    # @param modules [Array(CodeDoBo::AppClass)]
+    # @return [CodeDoBo::AppClass] current selected module
     def input_module(modules)
       module_string_list = @module_manager.module_strings
       input = ''
@@ -145,8 +145,8 @@ class CoDoBo
     # Print the prefix in the console
     # @return [void]
     def print_prefix
-      out = "\u001b[37m$ \u001b[32mcodobo-%{version}\u001b[33m:\u001b[34m%{user}\u001b[33m:\u001b[37m "
-      version = CoDoBo.version
+      out = "\u001b[37m$ \u001b[32mcodedobo-%{version}\u001b[33m:\u001b[34m%{user}\u001b[33m:\u001b[37m "
+      version = CodeDoBo.version
       user = ENV['USERNAME']
       print format(out, version: version, user: user)
     end

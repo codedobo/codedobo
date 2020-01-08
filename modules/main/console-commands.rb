@@ -2,7 +2,7 @@
 
 require_relative './index.rb'
 class MainModule
-  include CoDoBo::BotModule
+  include CodeDoBo::BotModule
   def register_stop_command
     @app_class.register_console_cmd(:stop, %w[exit close quit stop]) do |command, args|
       send_message "\u001b[96mExiting application..."

@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-class CoDoBo
-  # Every CoDoBo module has this class to manage the module with
+class CodeDoBo
+  # Every CodeDoBo module has this class to manage the module with
   # for example the enable
   class BotClass
     # @param properties [Hash{String => Object}]
-    # @param main_class [Class(CoDoBo::AppModule)]
-    # @param module_manager [CoDoBo::ModuleManager]
+    # @param main_class [Class(CodeDoBo::AppModule)]
+    # @param module_manager [CodeDoBo::ModuleManager]
     # @param language [String]
     # @param enable [Boolean]
     def initialize(properties, main_class, module_manager, enable = true)
@@ -20,10 +20,10 @@ class CoDoBo
     end
     # @return [Hash{String => Object}]
     attr_reader :properties
-    # @return [CoDoBo::BotModule]
+    # @return [CodeDoBo::BotModule]
     attr_reader :app_module
 
-    # Register a user command for the CoDoBo::UserCommandManager
+    # Register a user command for the CodeDoBo::UserCommandManager
     # @param symbol [Symbol]
     # @param aliases [Hash{String => String}] Hash{Language => Aliases}
     # @yield [command, args, event]
@@ -37,17 +37,17 @@ class CoDoBo
       end
     end
 
-    # Unregister a user command for the CoDoBo::UserCommandManager
+    # Unregister a user command for the CodeDoBo::UserCommandManager
     # @param symbol [Symbol]
     # @return [void]
     def unregister_user_cmd(symbol)
       @user_commands.delete(symbol)
     end
 
-    # @return [Hash{Symbol=>CoDoBo::UserCommand}]
+    # @return [Hash{Symbol=>CodeDoBo::UserCommand}]
     attr_reader :user_commands
 
-    # Register a console command for the CoDoBo::ConsoleCommandManager
+    # Register a console command for the CodeDoBo::ConsoleCommandManager
     # @param symbol [Symbol]
     # @param aliases [Array(String)]
     # @yield [command, args]
@@ -60,14 +60,14 @@ class CoDoBo
       end
     end
 
-    # Unregister a console command for the CoDoBo::ConsoleCommandManager
+    # Unregister a console command for the CodeDoBo::ConsoleCommandManager
     # @param symbol [Symbol]
     # @return [void]
     def unregister_console_cmd(symbol)
       @user_commands.delete(symbol)
     end
 
-    # @return [Hash{Symbol=>CoDoBo::ConsoleCommand}]
+    # @return [Hash{Symbol=>CodeDoBo::ConsoleCommand}]
     attr_reader :console_commands
 
     # Enable/Disable the module

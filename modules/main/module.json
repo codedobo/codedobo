@@ -5,9 +5,9 @@
         "file": "index.rb",
         "class": "MainModule"
     },
-    "website": "https://github.com/CodeDoctorDE/codobo",
+    "website": "https://github.com/codedobo/codedobo",
     "devs": [
-        "CodeDoctorDE"
+        "codedobo"
     ],
     "dependencies":[
     ],

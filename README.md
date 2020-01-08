@@ -1,4 +1,4 @@
-# Welcome to the CoDoBo GitHub Repository!
+# Welcome to the CodeDoBo GitHub Repository!
 
 ## [Features/Modules](modules):
 
@@ -6,7 +6,7 @@ Create own modules or use my modules from other repositories. Click on the modul
 
 ### In Development:
 - Games
-    - [UNO](https://github.com/CodeDoctorDE/codobo-uno)
+    - [UNO](https://github.com/codedobo/codedobo-uno)
 - [Main](modules/main)
 
 ## Discord:

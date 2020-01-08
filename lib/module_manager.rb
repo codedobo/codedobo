@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'json'
-class CoDoBo
+class CodeDoBo
   # This class handle the modules
   class ModuleManager
     def initialize(bot, client)
@@ -34,7 +34,7 @@ class CoDoBo
 
     # Get the app module instance from String
     # @param string [String] Class String
-    # @return [CoDoBo::AppClass]
+    # @return [CodeDoBo::AppClass]
     def get_module_by_string(string)
       strings = module_strings
       return nil if strings.index(string).nil?
@@ -74,7 +74,7 @@ class CoDoBo
     end
 
     # Modules from the module manager
-    # @return [Array(CoDoBo::AppClass)]
+    # @return [Array(CodeDoBo::AppClass)]
     attr_reader :modules
 
     # MySQL Client
@@ -82,7 +82,7 @@ class CoDoBo
     attr_reader :client
 
     # Get the help of the module
-    # @param app_module_class [Class(CoDoBo::AppClass)]
+    # @param app_module_class [Class(CodeDoBo::AppClass)]
     # @param args [Array(String)]
     # @return [String]
     def help(app_module_class, args)
@@ -94,7 +94,7 @@ class CoDoBo
     end
 
     # Get the module instance of the module class
-    # @return [CoDoBo::AppModule]
+    # @return [CodeDoBo::AppModule]
     def get(app_module_class)
       modules.each do |app_module|
         return app_module if app_module.class == app_module_class
@@ -121,7 +121,7 @@ class CoDoBo
       name = json['name']
       versions = json['compactible']
       no_comp = format(no_comp, module: name, version: versions)
-      send_message no_comp unless versions.include? CoDoBo.version
+      send_message no_comp unless versions.include? CodeDoBo.version
       load_folder(folder, json)
     end
 
@@ -133,7 +133,7 @@ class CoDoBo
       add_module(main_class, json)
     end
 
-    # @param main_class [Class(CoDoBo::AppModule)]
+    # @param main_class [Class(CodeDoBo::AppModule)]
     # @param properties [Hash{String=>Object}]
     def add_module(main_class, properties)
       adding = "\u001b[33mAdding module %{module}..."
@@ -145,10 +145,10 @@ class CoDoBo
     end
 
     # The main class
-    # @return [CoDoBo]
+    # @return [CodeDoBo]
     attr_reader :bot
 
-    # @return [CoDoBo::ModuleManager::CommandManager]
+    # @return [CodeDoBo::ModuleManager::CommandManager]
     attr_reader :command_manager
 
     #

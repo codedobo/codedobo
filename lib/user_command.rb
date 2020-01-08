@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CoDoBo
+class CodeDoBo
   # A console command
   class UserCommand
     # @param [Array(String)] aliases

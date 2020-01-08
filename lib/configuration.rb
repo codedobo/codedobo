@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CoDoBo
+class CodeDoBo
     # Control the json file
     class Configuration
       # @param file

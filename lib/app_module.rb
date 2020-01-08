@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-class CoDoBo
+class CodeDoBo
   # Every module must be a child of this module
   module BotModule
-    # @param app_class [CoDoBo::BotClass]
-    # @param module_manager [CoDoBo::ModuleManager]
+    # @param app_class [CodeDoBo::BotClass]
+    # @param module_manager [CodeDoBo::ModuleManager]
     def initialize(app_class, module_manager)
       @module_manager = module_manager
       @app_class = app_class
@@ -60,7 +60,7 @@ class CoDoBo
     def help(user, channel)
       error 'No help for this module!'
     end
-    # @return [CoDoBo::AppClass]
+    # @return [CodeDoBo::AppClass]
     attr_reader :app_class
   end
 end

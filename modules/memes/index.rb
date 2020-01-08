@@ -1,5 +1,5 @@
 class MemesModule 
-    include CoDoBo::BotModule
+    include CodeDoBo::BotModule
 
     
 end

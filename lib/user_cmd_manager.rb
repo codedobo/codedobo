@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
-class CoDoBo
+class CodeDoBo
   # Command manager for the module manager
   class UserCommandManager
     #
     # Init new handler for user commands
     #
-    # @param [CoDoBo] bot
-    # @param module_manager [CoDoBo::ModuleManager]
+    # @param [CodeDoBo] bot
+    # @param module_manager [CodeDoBo::ModuleManager]
     #
     def initialize(bot, module_manager)
       @module_manager = module_manager
       @bot = bot
       @multiple_commands = {}
       @multiple_modules = {}
-      @language = CoDoBo::Language.new module_manager.client, __dir__ + '/../language'
+      @language = CodeDoBo::Language.new module_manager.client, __dir__ + '/../language'
 
       @bot.discord.message do |event|
         run(event)
@@ -101,7 +101,7 @@ class CoDoBo
     end
 
     # Handle command from this array
-    # @param modules_commands [Hash{CoDoBo::AppModule=> Array(Symbol)}]
+    # @param modules_commands [Hash{CodeDoBo::AppModule=> Array(Symbol)}]
     #   used by CommandManager#handle_command
     # @param command_string [String]
     # @param args [Array(String)]
@@ -124,7 +124,7 @@ class CoDoBo
     # Handle command from this array
     # @param symbols [Array(Symbol)]
     #   used by CommandManager#handle_module_commands
-    # @param app_class [CoDoBo::BotModule]
+    # @param app_class [CodeDoBo::BotModule]
     # @param command_string [String]
     # @param args [Array(String)]
     # @param event [Discordrb::Events::MessageEvent]
@@ -157,8 +157,8 @@ class CoDoBo
     # Print the prefix in the console
     # @return [void]
     def print_prefix
-      out = "\u001b[37m$ \u001b[32mcodobo-%<version>\u001b[33m:\u001b[34m%<user>\u001b[33m:\u001b[37m "
-      version = CoDoBo.version
+      out = "\u001b[37m$ \u001b[32mcodedobo-%<version>\u001b[33m:\u001b[34m%<user>\u001b[33m:\u001b[37m "
+      version = CodeDoBo.version
       user = ENV['USERNAME']
       print format(out, version: version, user: user)
     end
