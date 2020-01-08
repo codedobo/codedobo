@@ -29,7 +29,7 @@ class CoDoBo
   def run
     puts "\u001b[36mStarting discord bot..."
     discord.run(true)
-    discord.game = 'gitlab/CodeDoctorDE'
+    discord.game = 'github/CodeDoctorDE/codobo'
     @module_manager.start
     @console_cmd_manager.run
     @user_cmd_manager.run
