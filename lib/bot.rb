@@ -56,6 +56,6 @@ class CodeDoBo
   end
 
   def self.developer
-    'codedobo'
+    'CodeDoctorDE'
   end
 end
