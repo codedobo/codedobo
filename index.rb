@@ -17,20 +17,13 @@ Dir[File.join('./lib', '**/*.rb')].each do |file|
 end
 send_message "\e[32mSuccessfully read lib folder!"
 
-if ARGV.length != 1
-  print 'Please enter a token: '
-  botToken = STDIN..chomp
-else
-  botToken = ARGV[0]
-end
-
-bot = Discordrb::Bot.new token: botToken
+file = File.open 'config.json'
+config_data = JSON.load file
+bot = Discordrb::Bot.new token: config_data['token']
 puts "\u001b[36mConnecting to mysql..."
-file = File.open 'database.json'
-databaseData = JSON.load file
 file.close
-client = Mysql2::Client.new(host: databaseData['host'], username: databaseData['username'], password: databaseData['password'], database: databaseData['database'])
+client = Mysql2::Client.new(host: config_data['host'], username: config_data['username'], password: config_data['password'], database: config_data['database'])
 send_message "\u001b[32mSuccessfully connected to mysql!"
-coDoBo = CodeDoBo.new(bot, client)
+codobo = CodeDoBo.new(bot, client)
 send_message "\u001b[32mSuccessfully started CodeDoBo!"
-coDoBo.run
+codobo.run

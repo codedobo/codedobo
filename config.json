@@ -2,5 +2,6 @@
     "host":"localhost",
     "username":"Bot",
     "password":"bot",
-    "database":"Bot_CodeDoBo"
+    "database":"Bot_CoDoBo",
+    "token":""
 }
