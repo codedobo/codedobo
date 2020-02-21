@@ -81,6 +81,8 @@ class CodeDoBo
         modules_commands[app_class] = commands.keys if permit
       end
       handle_module_commands(modules_commands, command_string, args)
+    rescue StandardError, Interrupt => e
+      puts "Cancelling..."
     end
 
     # Handle command from this array
@@ -118,13 +120,13 @@ class CodeDoBo
       true
     end
 
-    # @param modules [Array(CodeDoBo::AppClass)]
+    # @param modules [Array<CodeDoBo::AppClass>]
     # @return [CodeDoBo::AppClass] current selected module
     def input_module(modules)
       module_string_list = @module_manager.module_strings
       input = ''
       until module_string_list.include? input
-        send_message "\u001b[36mThis command uses multiple modules. Which module do you want to use? \r\n#{modules.join(', ')}"
+        send_message "\u001b[36mThis command uses multiple modules. Which module do you want to use? \r\n#{modules.map { |app_class| app_class.app_module.class.name }.join(', ')}"
         input = STDIN.gets.chomp
       end
       modules[module_string_list.index(input)]

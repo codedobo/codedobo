@@ -167,6 +167,7 @@ class CodeDoBo
     # Send a message with the prefix
     #
     # @param [String] message
+    # @param [Discordrb::] channel
     #
     # @return [void]
     #
