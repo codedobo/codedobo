@@ -54,6 +54,9 @@ class CodeDoBo
       end
       server_prefixes = @bot.server_prefix
 
+      if event.content == ""
+        return
+      end
       unless event.content.start_with?(server_prefixes[event.server.id])
         return
       end
