@@ -1,3 +1,6 @@
 [submodule "modules/uno"]
 	path = modules/uno
-	url = https://github.com/codedobo/codedobo-uno.git
+	url = https://github.com/codedobo/uno.git
+[submodule ".\\modules\\support"]
+	path = .\\modules\\support
+	url = https://github.com/codedobo/support

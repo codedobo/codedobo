@@ -22,7 +22,7 @@ class MainModule include CodeDoBo::BotModule
     id = server.id
     language = 'en'
     prefix = '+cdb'
-    @module_manager.client.query("INSERT INTO `main` VALUES (#{id},'#{language}','#{prefix}') ON DUPLICATE KEY UPDATE LANGUAGE='#{language}', PREFIX='#{prefix}';")
+    @module_manager.client.query("INSERT IGNORE INTO `main` VALUES (#{id},'#{language}','#{prefix}');")
     update_prefix
     send_message "\u001b[32mSuccessfully set up main module for #{server.id}!"
   end
