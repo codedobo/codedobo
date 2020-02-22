@@ -3,6 +3,6 @@
     "username":"Bot",
     "password":"bot",
     "database":"Bot_CoDoBo",
-    "token":"",
-    "encoding": "utf-8"
+    "token":"NTMzNTMzNTMzOTUyNjcxNzY0.Xh306Q.WuU4Fcq1RGitHKZF0Uzprt0uVi0",
+    "adapter":"mysql2"
 }

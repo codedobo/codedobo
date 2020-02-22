@@ -2,9 +2,8 @@ require "active_record"
 
 namespace :db do
 
-  db_config       = YAML::load(File.open('config/database.json'))
-  db_config_admin = db_config.merge({'database' => 'postgencoding: utf-8
-    res', 'schema_search_path' => 'public'})
+  db_config       = JSON.load(File.open('config.json'))
+  db_config_admin = db_config.merge({'database' => db_config["database"], 'schema_search_path' => 'public'})
 
   desc "Create the database"
   task :create do
@@ -15,8 +14,8 @@ namespace :db do
 
   desc "Migrate the database"
   task :migrate do
-    ActiveRecord::Base.establish_connection(db_config)
-    ActiveRecord::Migrator.migrate("db/migrate/")
+    ActiveRecord::Base.establish_connection(db_config_admin)
+    ActiveRecord::Tasks::DatabaseTasks.migrate
     Rake::Task["db:schema"].invoke
     puts "Database migrated."
   end
@@ -40,7 +39,13 @@ namespace :db do
       ActiveRecord::SchemaDumper.dump(ActiveRecord::Base.connection, file)
     end
   end
-
+  desc "Migrate the database"
+  task :rollback do
+    ActiveRecord::Base.establish_connection(db_config)
+    ActiveRecord::MigrationContext.new("db/migrate/").rollback
+    Rake::Task["db:schema"].invoke
+    puts "Last migration has been reverted."
+  end
 end
 
 namespace :g do

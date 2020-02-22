@@ -35,9 +35,11 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2019.1009)
     minitest (5.14.0)
+    mysql2 (0.5.3-x64-mingw32)
     netrc (0.11.0)
     opus-ruby (1.0.1)
       ffi
+    rake (13.0.1)
     rbnacl (3.4.0)
       ffi
     rest-client (2.1.0-x64-mingw32)
@@ -63,8 +65,10 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
-  activerecord
+  activerecord (~> 6)
   discordrb
+  mysql2
+  rake
   ruby
 
 BUNDLED WITH
