@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative './console_cmd_manager.rb'
-require_relative './setup.rb'
 class String
   def numeric?
     !Float(self).nil?
