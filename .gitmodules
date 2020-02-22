@@ -3,7 +3,7 @@
 	url = https://github.com/codedobo/uno.git
 [submodule ".\\modules\\support"]
 	path = .\\modules\\support
-	url = https://github.com/codedobo/support
+	url = https://github.com/codedobo/support.git
 [submodule ".\\modules\\main"]
 	path = .\\modules\\main
-	url = https://github.com/codedobo/main
+	url = https://github.com/codedobo/main.git
