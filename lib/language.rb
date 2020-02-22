@@ -35,11 +35,13 @@ class CodeDoBo
     # Get the json file from the server id
     #
     # @param [String] serverID
+    # @param [String] default_language
     #
     # @return [Hash]
     #
-    def get_json(serverID)
-      data = JSON.load get(serverID)
+    def get_json(default_language='en', serverID)
+      data = JSON.load get(default_language)
+      data.update(JSON.load(get(serverID)))
       return data
     end
 
