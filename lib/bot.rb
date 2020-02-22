@@ -14,7 +14,6 @@ class CodeDoBo
     @discord = discord
     @client = client
     @server_prefix = {}
-    setup
     @module_manager = CodeDoBo::ModuleManager.new(self, client)
     @user_cmd_manager = CodeDoBo::UserCommandManager.new(self, @module_manager)
     @console_cmd_manager = CodeDoBo::ConsoleCommandManager.new(self, @module_manager)
