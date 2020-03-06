@@ -8,6 +8,4 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 gem 'discordrb'
 gem 'ruby'
 gem 'mysql2'
-gem 'activerecord', '~> 6'
-
-gem 'rake'
+gem 'sequel'

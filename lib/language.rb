@@ -26,7 +26,10 @@ class CodeDoBo
     attr_reader :folder
 
     def get(serverID)
-      path = "#{@folder}/#{@language[serverID]}.json"
+      get_file(@language[serverID])
+    end
+    def get_file(language)
+      path = "#{@folder}/#{language}.json"
       file = File.open path
       file
     end
@@ -39,9 +42,9 @@ class CodeDoBo
     #
     # @return [Hash]
     #
-    def get_json(default_language='en', serverID)
-      data = JSON.load get(default_language)
-      data.update(JSON.load(get(serverID)))
+    def get_json(serverID,default_language="en")
+      data = JSON.load(get_file(default_language))
+      data.merge!(JSON.load(get(serverID)))
       return data
     end
 
