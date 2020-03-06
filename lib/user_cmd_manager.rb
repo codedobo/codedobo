@@ -54,12 +54,10 @@ class CodeDoBo
       end
       server_prefixes = @bot.server_prefix
 
-      if event.content == ""
-        return
-      end
-      unless event.content.start_with?(server_prefixes[event.server.id])
-        return
-      end
+      return unless event.content
+      return unless server_prefixes.include? event.server.id
+
+      return unless event.content.start_with?(server_prefixes[event.server.id])
 
       command_string = event.content[server_prefixes[event.server.id].length..-1]
       command_list = command_string.split(' ')
@@ -137,7 +135,7 @@ class CodeDoBo
 
       unless symbols.length == 1
         event << format(@language.get_json(event.server.id)['user']['multiple']['commands']['message'], m: symbols.join(@language.get_json(event.server.id)['user']['multiple']['commands']['delimiter']))
-        @multiple_commands[[event.author.id, event.server.id]] = {s: symbols, c: command_string, a: args, ac: app_class}
+        @multiple_commands[[event.author.id, event.server.id]] = { s: symbols, c: command_string, a: args, ac: app_class }
         return nil
       end
       current_symbol = symbols.first if current_symbol.nil?

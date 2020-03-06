@@ -77,8 +77,8 @@ class CodeDoBo
     # @return [Array(CodeDoBo::AppClass)]
     attr_reader :modules
 
-    # MySQL Client
-    # @return [Mysql2::Client]
+    # Sequel Client
+    # @return [Sequel::Database]
     attr_reader :client
 
     # Get the help of the module
@@ -171,5 +171,6 @@ class CodeDoBo
     def send_message(message)
       puts "\u001b[32m[ModuleManager] " + message
     end
+
   end
 end
