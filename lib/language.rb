@@ -7,14 +7,12 @@ class CodeDoBo
     #
     # Language system for individual servers
     #
-    # @param [Mysql2::Client] client <description>
+    # @param [Sequel::Database] client <description>
     # @param [String] folder Where all language files are (see MainModule)
     #
     def initialize(client, folder)
       @folder = folder
-      @language = {}
       @client = client
-      reload
     end
 
     # Returns a hash with the file name as key
@@ -26,7 +24,11 @@ class CodeDoBo
     attr_reader :folder
 
     def get(serverID)
-      path = "#{@folder}/#{@language[serverID]}.json"
+      get_file(@client[:main].first(server_id: serverID)[:language])
+    end
+
+    def get_file(language)
+      path = "#{@folder}/#{language}.json"
       file = File.open path
       file
     end
@@ -35,11 +37,13 @@ class CodeDoBo
     # Get the json file from the server id
     #
     # @param [String] serverID
+    # @param [String] default_language
     #
     # @return [Hash]
     #
-    def get_json(serverID)
-      data = JSON.load get(serverID)
+    def get_json(serverID,default_language="en")
+      data = JSON.load(get_file(default_language))
+      data.merge!(JSON.load(get(serverID)))
       return data
     end
 
@@ -70,14 +74,6 @@ class CodeDoBo
         languages.push File.basename(file,File.extname(file))  if file.end_with?(".json")
       end
       languages
-    end
-
-    # Load all languages from the servers
-    def reload
-      @language.clear
-      @client.query('SELECT * FROM `main`;').each do |row|
-        @language[row['SERVERID']] = row['LANGUAGE']
-      end
     end
   end
 end

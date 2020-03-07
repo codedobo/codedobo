@@ -58,7 +58,7 @@ class CodeDoBo
     # @return [void]
     #
     def help(user, channel)
-      error 'No help for this module!'
+      channel.send_message ':x: No help for this module! :x:'
     end
     # @return [CodeDoBo::AppClass]
     attr_reader :app_class

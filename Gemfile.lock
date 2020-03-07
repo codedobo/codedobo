@@ -10,28 +10,30 @@ GEM
       websocket-client-simple (>= 0.3.0)
     discordrb-webhooks (3.3.0)
       rest-client (>= 2.1.0.rc1)
-    domain_name (1.0.20190701)
-      unf (>= 0.1.0, < 1.0.0)
+    domain_name (0.5.20190701)
+      unf (>= 0.0.5, < 1.0.0)
     event_emitter (0.2.6)
-    ffi (1.11.1)
+    ffi (1.12.2-x64-mingw32)
     http-accept (1.7.0)
     http-cookie (1.0.3)
-      domain_name (~> 1.0)
-    mime-types (3.2.2)
+      domain_name (~> 0.5)
+    mime-types (3.3.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2019.0331)
-    mysql2 (1.0.2)
+    mime-types-data (3.2019.1009)
+    mysql2 (0.5.3-x64-mingw32)
     netrc (0.11.0)
     opus-ruby (1.0.1)
       ffi
     rbnacl (3.4.0)
       ffi
-    rest-client (2.1.0.rc1)
+    rest-client (2.1.0-x64-mingw32)
+      ffi (~> 1.9)
       http-accept (>= 1.7.0, < 2.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     ruby (0.1.0)
+    sequel (5.30.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.6)
@@ -41,12 +43,13 @@ GEM
       websocket
 
 PLATFORMS
-  ruby
+  x64-mingw32
 
 DEPENDENCIES
   discordrb
   mysql2
   ruby
+  sequel
 
 BUNDLED WITH
-   2.0.2
+   2.1.4
