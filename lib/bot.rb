@@ -51,7 +51,7 @@ class CodeDoBo
   end
 
   def self.version
-    'Beta 1.0.1'
+    'Beta 1.1.0'
   end
 
   def self.developer
