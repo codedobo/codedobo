@@ -173,7 +173,7 @@ class CodeDoBo
     # @return [void]
     #
     def send_message(message)
-      puts "\u001b[37m[UserCommandManager] " + message + "\e[0m"
+      @module_manager.bot.log "\u001b[37m[UserCommandManager] " + message + "\e[0m"
     end
 
     # @param error [StandardError]

@@ -169,7 +169,7 @@ class CodeDoBo
     # @param message [String]
     # @return void
     def send_message(message)
-      puts "\u001b[32m[ModuleManager] " + message
+      @bot.log "\u001b[32m[ModuleManager] " + message
     end
 
   end
