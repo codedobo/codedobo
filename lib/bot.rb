@@ -9,11 +9,12 @@ class String
   end
 end
 class CodeDoBo
-  def initialize(discord, client)
+  def initialize(discord, client, logs = true)
     @discord = discord
     @client = client
     @server_prefix = {}
     setup
+    @logs = logs
     @module_manager = CodeDoBo::ModuleManager.new(self, client)
     @user_cmd_manager = CodeDoBo::UserCommandManager.new(self, @module_manager)
     @console_cmd_manager = CodeDoBo::ConsoleCommandManager.new(self, @module_manager)
@@ -26,13 +27,13 @@ class CodeDoBo
   attr_reader :server_prefix
   attr_reader :console_command
   def run
-    puts "\u001b[36mStarting discord bot..."
+    log "\u001b[36mStarting discord bot..."
     discord.run(true)
     discord.game = 'github/codedobo'
     @module_manager.start
     @console_cmd_manager.run
     @user_cmd_manager.run
-    puts "\u001b[32mSuccessfully started discord bot!"
+    log "\u001b[32mSuccessfully started discord bot!"
   end
 
   def stop
@@ -56,5 +57,13 @@ class CodeDoBo
 
   def self.developer
     'CodeDoctorDE'
+  end
+
+  def log(text)
+    puts text
+    return unless @logs
+    File.open('./logs.txt', 'a') do |file|
+      file.puts text
+    end
   end
 end

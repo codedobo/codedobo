@@ -40,13 +40,13 @@ class CodeDoBo
     # Send the message with the prefix
     # @return [void]
     def send_message(message)
-      puts prefix + message + "\e[0m"
+      @module_manager.bot.log prefix + message + "\e[0m"
     end
 
     # Send the method in red with the prefix
     # @return [void]
     def error(message)
-      puts prefix + "\e[31m" + message + "\e[0m"
+      @module_manager.bot.log s prefix + "\e[31m" + message + "\e[0m"
     end
 
     #
