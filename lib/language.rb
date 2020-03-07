@@ -29,6 +29,8 @@ class CodeDoBo
 
     def get_file(language)
       path = "#{@folder}/#{language}.json"
+      return unless File.file? path
+
       file = File.open path
       file
     end
@@ -43,7 +45,8 @@ class CodeDoBo
     #
     def get_json(serverID,default_language="en")
       data = JSON.load(get_file(default_language))
-      data.merge!(JSON.load(get(serverID)))
+      file = get(serverID)
+      data.deep_merge!(JSON.load(file)) if file
       return data
     end
 

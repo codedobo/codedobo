@@ -9,6 +9,16 @@ send_message "\e[33mWelcome to the CodeDoBo! Starting bot..."
 require 'discordrb'
 require 'json'
 require 'sequel'
+class ::Hash
+  def deep_merge(second)
+      merger = proc { |key, v1, v2| Hash === v1 && Hash === v2 ? v1.merge(v2, &merger) : v2 }
+      self.merge(second, &merger)
+  end
+  def deep_merge!(second)
+      merger = proc { |key, v1, v2| Hash === v1 && Hash === v2 ? v1.merge(v2, &merger) : v2 }
+      self.merge!(second, &merger)
+  end
+end
 
 send_message "\e[33mReading lib folder..."
 Dir[File.join('./lib', '**/*.rb')].each do |file|

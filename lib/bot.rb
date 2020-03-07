@@ -62,6 +62,7 @@ class CodeDoBo
   def log(text)
     puts text
     return unless @logs
+    
     File.open('./logs.txt', 'a') do |file|
       file.puts text
     end
