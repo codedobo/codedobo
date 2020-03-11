@@ -7,3 +7,6 @@
 [submodule "modules/main"]
 	path = modules/main
 	url = https://github.com/codedobo/main.git
+[submodule "modules/quiz"]
+	path = modules/quiz
+	url = https://github.com/codedobo/quiz.git
