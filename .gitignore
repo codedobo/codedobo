@@ -60,3 +60,4 @@ config.json
 logs.txt
 /modules/
 !/modules/*.*
+Gemfile.lock
