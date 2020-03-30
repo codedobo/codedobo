@@ -29,7 +29,7 @@ class CodeDoBo
   def run
     log "\u001b[36mStarting discord bot..."
     discord.run(true)
-    discord.game = 'github/codedobo'
+    discord.game = "github/codedobo " + CodeDoBo.version
     @module_manager.start
     @console_cmd_manager.run
     @user_cmd_manager.run
@@ -38,7 +38,7 @@ class CodeDoBo
 
   def stop
     puts 'Bye'
-    discord.stop(false)
+    discord.stop(true)
     @module_manager.stop
     @console_cmd_manager.stop
   end
@@ -64,7 +64,7 @@ class CodeDoBo
     return unless @logs
     
     File.open('./logs.txt', 'a') do |file|
-      file.puts text
+      file.puts Time.now.inspect + ": " + text
     end
   end
 end
