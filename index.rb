@@ -36,7 +36,7 @@ bot = Discordrb::Bot.new token: config_data['token']
 puts "\u001b[36mConnecting to mysql..."
 Sequel::Model.plugin :force_encoding, 'UTF-8'
 
-client = Sequel.connect(host: config_data['host'], user: config_data['username'], password: config_data['password'], encoding: "utf8", database: config_data['database'], adapter: config_data['adapter'])
+client = Sequel.connect(host: config_data['host'], user: config_data['username'], password: config_data['password'], encoding: "utf8mb4", database: config_data['database'], adapter: config_data['adapter'])
 client.default_charset = 'utf8'
 send_message "\u001b[32mSuccessfully connected to mysql!"
 codobo = CodeDoBo.new(bot, client, config_data['logs'])
