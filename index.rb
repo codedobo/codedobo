@@ -34,10 +34,10 @@ send_message "\e[32mSuccessfully read lib folder!"
 config_data = JSON.parse File.read('config.json')
 bot = Discordrb::Bot.new token: config_data['token']
 puts "\u001b[36mConnecting to mysql..."
-Sequel::Model.plugin :force_encoding, 'utf8_general_ci'
+Sequel::Model.plugin :force_encoding, 'utf8mb4_general_ci'
 
-client = Sequel.connect(host: config_data['host'], user: config_data['username'], password: config_data['password'], encoding: "utf8_general_ci", database: config_data['database'], adapter: config_data['adapter'])
-client.default_charset = 'utf8_general_ci'
+client = Sequel.connect(host: config_data['host'], user: config_data['username'], password: config_data['password'], encoding: "utf8mb4_general_ci", database: config_data['database'], adapter: config_data['adapter'])
+client.default_charset = 'utf8mb4_general_ci'
 send_message "\u001b[32mSuccessfully connected to mysql!"
 codobo = CodeDoBo.new(bot, client, config_data['logs'])
 send_message "\u001b[32mSuccessfully started CodeDoBo!"
