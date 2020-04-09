@@ -11,7 +11,11 @@ require 'discordrb'
 require 'json'
 require 'sequel'
 Encoding.default_external='utf-8'
-
+class Object
+  def blank?
+    respond_to?(:empty?) ? empty? : !self
+  end
+end
 class ::Hash
   def deep_merge(second)
     merger = proc { |_key, v1, v2| Hash === v1 && Hash === v2 ? v1.merge(v2, &merger) : v2 }
